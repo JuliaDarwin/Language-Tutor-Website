@@ -116,9 +116,10 @@ export default function Homepage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/lessons">
-              <button className="inline-flex items-center rounded-full bg-[var(--accent)] px-6 py-3 text-sm sm:text-base font-semibold text-slate-950 shadow-sm hover:bg-[var(--accent-strong)] transition-colors">
-                Book your first lesson
-              </button>
+              <button 
+                    className="inline-flex items-center rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
+                        Book your first lesson
+                    </button> 
             </Link>
             <Link
               href="/contact"
@@ -134,3 +135,10 @@ export default function Homepage() {
         </>
   ) 
 }
+
+/*tracking controls spacing between letters 
+inset: 0 means top: 0;
+right: 0;
+bottom: 0;
+left: 0;, --> to make the element fill all the container
+*/

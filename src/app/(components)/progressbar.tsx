@@ -11,10 +11,10 @@ function ProgressBar({ step }: { step: number }) {
                 <div className="w-full progress flex justify-between items-center gap-8">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-600"}`}>1</div>
                     <div className={`flex-1 h-1
-                  ${step >= 2 ? "bg-indigo-600" : "bg-gray-200"}`}></div>
+                  ${step >= 2 ? "bg-[var(--blue)]" : "bg-gray-200"}`}></div>
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-600"}`}>2</div>
                     <div className={`flex-1 h-1
-                  ${step >= 3 ? "bg-indigo-600" : "bg-gray-200"}`}></div>
+                  ${step >= 3 ? "bg-[var(--blue)]" : "bg-gray-200"}`}></div>
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 3 ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-600"}`}>3</div>
                 </div>
                 

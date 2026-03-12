@@ -30,7 +30,7 @@ export default function PricingPlans() {
             key={plan.name}
             className={`rounded-2xl shadow-lg p-8 bg-white flex flex-col justify-between transition transform hover:-translate-y-2 ${
               plan.highlighted
-                ? "border-2 border-blue-600 scale-105"
+                ? "border-2 border-[var(--lightblue)] scale-105"
                 : "border border-gray-200"
             }`}
           >
@@ -57,8 +57,8 @@ export default function PricingPlans() {
             <button
               className={`w-full py-3 rounded-xl font-semibold transition ${
                 plan.highlighted
-                  ? "bg-indigo-600 text-white hover:bg-indigo-600"
-                  : "bg-gray-800 text-white hover:bg-gray-900"
+                  ? "bg-[var(--blue)] text-white hover:bg-[var(--lightblue)] hover:text-black"
+                  : "bg-[var(--lightblue)]/20 text-black hover:bg-[var(--blue)]/80 hover:text-white"
               }`}
             >
               Choose Plan

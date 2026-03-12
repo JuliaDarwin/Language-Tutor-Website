@@ -4,6 +4,8 @@
 :root {
   --background: lightgrey;
   --foreground: #171717;
+  --blue: #2e23fb;
+  --lightblue: #23a8fb; 
 }
 .dark {
   --background: #2a2929;

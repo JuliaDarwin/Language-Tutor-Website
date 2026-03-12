@@ -57,7 +57,7 @@ function prevStep() {
                     <option value="other">Other</option>
                 </select>
                 <div className="flex justify-end">
-                    <button type="button" onClick={nextStep} className="mt-6 py-2 px-5 bg-indigo-600 text-white rounded">
+                    <button type="button" onClick={nextStep} className="mt-6 py-2 px-5 bg-[var(--blue)]/80 text-white rounded">
                 Next </button>
                 </div>
                 
@@ -76,7 +76,7 @@ function prevStep() {
                  <button type="button" className="py-2 px-5 bg-gray-400 text-white rounded" onClick={prevStep}>
                 Back </button>
 
-                <button type="button" className="py-2 px-5 bg-indigo-600 text-white rounded" onClick={nextStep}
+                <button type="button" className="py-2 px-5 bg-[var(--blue)]/80 text-white rounded" onClick={nextStep}
                 >Next </button>
              </div>
             </fieldset>
@@ -89,12 +89,12 @@ function prevStep() {
                 <textarea className="w-full p-3 border-2 focus:border-green-300 focus:outline-none" id="message" name="message" value={formData.message} onChange={handleChange}></textarea>
 
                 <label className="block my-2" htmlFor="terms">
-                    <input className="mr-4 accent-fuchsia-600" type="checkbox" id="terms" name="terms" required />
+                    <input className="mr-4 accent-[var(--lightblue)]" type="checkbox" id="terms" name="terms" required />
                     I agree to the terms and conditions
                 </label>
                 <div className="flex justify-between mt-10">
                     <button type="button" className="p-2 px-5 bg-gray-400 text-white rounded" onClick={prevStep}> Back </button>
-                    <button className="px-5 bg-indigo-600 text-white hover:bg-fuchsia-500 rounded" type="submit">Submit</button>
+                    <button className="px-5 bg-[var(--blue)]/80 text-white hover:bg-[var(--lightblue)] rounded" type="submit">Submit</button>
                 </div> 
             </fieldset>
             )}   

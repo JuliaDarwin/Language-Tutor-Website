@@ -71,9 +71,9 @@ export default async function LessonPage({
               ))}
             </ul>
           </div>
-          <button className="bg-indigo-600 2xl:text-2xl text-white px-16 py-2 rounded-lg hover:bg-amber-800">
-           <a href="#pricing-plans">Choose Your Package</a> 
-          </button>
+           <button className="inline-flex items-center rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
+              <a href="#pricing-plans">Choose Your Package</a> 
+           </button> 
         </div>
         <img src={"/conversational.jpg"} className="mx-auto w-full 2xl:max-w-[90%]"></img>
       </div>
