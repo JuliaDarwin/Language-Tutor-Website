@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { FaInstagram, FaFacebook } from "react-icons/fa";
+import { ClerkProvider } from "@clerk/nextjs";
 
 
 const geistSans = Geist({
@@ -28,7 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <ClerkProvider>
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
         <body> 
           
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
@@ -59,5 +61,6 @@ export default function RootLayout({
           
         </footer>
     </html>
+    </ClerkProvider>
   );
 }
