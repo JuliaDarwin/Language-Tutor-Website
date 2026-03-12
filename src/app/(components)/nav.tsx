@@ -14,75 +14,122 @@ export default function Nav() {
 
     return (
       <header>
- {/*desktop nav*/}
-<nav className= "bg-black hidden sm:flex sticky top-0 opacity-80">
-                 
-<div className="flex flex-col sm:flex-row justify-between items-center h-auto sm:h-20 w-[95%] mx-auto px-5 py-4 sm:py-0">
-            <div  className="flex flex-row justify-between mb-4 sm:mb-0">
-              <div className="flex flex-row gap-5">
-                <ThemeToggle />
-                <Link href="/" className="hover:underline font-bold text-2xl text-white mb-4 sm:mb-0">Pordon School of Catalan</Link>
-              </div>
-             
+       {/*desktop nav*/}
+        <nav className="hidden sm:flex sticky top-0 z-30 bg-slate-950/90 backdrop-blur border-b border-slate-800">
+          <div className="flex flex-row justify-between items-center h-16 w-[90%] max-w-6xl mx-auto px-4">
+            <div className="flex flex-row items-center gap-4">
+              <ThemeToggle />
+              <Link
+                href="/"
+                className="font-semibold text-lg text-white tracking-tight hover:text-indigo-200 transition-colors"
+              >
+                Pordon School of Catalan
+              </Link>
             </div>
-              <ul className="flex flex-col sm:flex-row items-center justify-center w-full sm:w-auto gap-2 sm:gap-8">
-                <li className="hover:underline text-white">
-                  <Link href="/about">About me</Link>
-                </li>
-                <li className="hover:underline text-white">
-                  <Link href="/contact">Contact</Link>
-                </li>
-                <li className="hover:bg-amber-500 text-black text-center bg-amber-400 p-2 rounded-2xl">
-                  <Link href="/lessons">Book a lesson</Link>
-                </li>
-                <li className="hidden sm:flex sm:flex-row sm:items-center sm:gap-5">
-                    <SignedOut>
-                      <SignInButton mode="modal" />
-                    </SignedOut>
-                    <UserButton />
-                </li>
-              </ul>
+            <ul className="flex flex-row items-center justify-center gap-6 text-sm font-medium">
+              <li>
+                <Link
+                  href="/about"
+                  className="text-slate-100 hover:text-indigo-200 transition-colors"
+                >
+                  About me
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/contact"
+                  className="text-slate-100 hover:text-indigo-200 transition-colors"
+                >
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/lessons"
+                  className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
+                >
+                  Book a lesson
+                </Link>
+              </li>
+              <li className="hidden sm:flex flex-row items-center gap-3">
+                <SignedOut>
+                  <SignInButton mode="modal">
+                     <button className="text-slate-100 hover:text-indigo-200 transition-colors">
+                         Sign in
+                      </button>
+                  </SignInButton>
+                </SignedOut>
+                <UserButton />
+              </li>
+            </ul>
           </div>
-          </nav>
+        </nav>
 
           {/*phone nav*/}
-        <nav className="sm:hidden bg-black sticky top-0 opacity-80">
-          <button className="pt-2 pl-2 text-white" onClick={() => setOpen(!open)}>
+        <nav className="sm:hidden sticky top-0 z-30 bg-slate-950/90 backdrop-blur border-b border-slate-800">
+          <button className="p-3 text-white" onClick={() => setOpen(!open)}>
             {open ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
           {open && (
-<div  className="flex flex-col sm:flex-row justify-between items-center h-auto sm:h-20 w-[95%] mx-auto px-10 py-4 sm:py-0">
-            <div  className="flex flex-col justify-between items-center mb-4 sm:mb-0">    
-                <Link href="/" className="hover:underline font-bold text-2xl text-white mb-4 sm:mb-0">Pordon School of Catalan</Link>
-                <ThemeToggle />
-            </div>
-              <ul className="flex flex-col sm:flex-row items-center justify-center w-full sm:w-auto gap-2 sm:gap-8">
-                <li className="hover:underline text-white">
-                  <Link href="/about">About me</Link>
-                </li>
-                <li className="hover:underline text-white">
-                  <Link href="/contact">Contact</Link>
-                </li>
-                <li className="hover:bg-amber-500 text-black text-center bg-amber-400 p-2 rounded-2xl">
-                  <Link href="/lessons">Book a lesson</Link>
-                </li>
-                <li className="flex flex-row items-center gap-5">
-                  <SignedOut>
-                      <SignInButton mode="modal" />
+            <div className="border-t border-slate-800 bg-slate-950/95">
+              <div className="flex flex-col gap-6 w-[90%] mx-auto py-6">
+                <div className="flex flex-col items-start gap-3">
+                  <Link
+                    href="/"
+                    className="font-semibold text-xl text-white tracking-tight"
+                  >
+                    Pordon School of Catalan
+                  </Link>
+                  <ThemeToggle />
+                </div>
+                <ul className="flex flex-col items-start gap-4 text-sm font-medium">
+                  <li>
+                    <Link
+                      href="/about"
+                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                    >
+                      About me
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                    >
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/lessons"
+                      className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
+                    >
+                      Book a lesson
+                    </Link>
+                  </li>
+                  <li className="flex flex-row items-center gap-4">
+                    <SignedOut>
+                      <SignInButton mode="modal">
+                        <button className="text-slate-100 hover:text-indigo-200 transition-colors">
+                         Sign in
+                        </button>
+                      </SignInButton>
                     </SignedOut>
-                </li>
+                  </li>
                   <SignedIn>
+                    <div className="flex flex-row items-center gap-4">
                       <SignOutButton />
-                    </SignedIn>
-                <li>
-                  <SignedIn>
-                    <Link href="/user-profile">Profile</Link>
+                      <Link
+                        href="/user-profile"
+                        className="text-slate-100 hover:text-indigo-200 transition-colors"
+                      >
+                        Profile
+                      </Link>
+                    </div>
                   </SignedIn>
-                </li>
-                
-                
-              </ul>
-          </div>
+                </ul>
+              </div>
+            </div>
           )}
          
           </nav>

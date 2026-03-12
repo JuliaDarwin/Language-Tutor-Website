@@ -24,7 +24,11 @@ export default function About(){
             <hr className="mx-20 my-10 border-2"></hr>
             <div className="mb-30 text-center ">
                 <h2 className="m-4 mb-5 2xl:text-2xl">Start your learning here</h2>
-                <Link href="/lessons"><button className="bg-yellow-100 text-black 2xl:text-3xl hover:bg-yellow-300 p-2 px-4 border-2 font-bold">Get started</button></Link>
+                <Link href="/lessons">
+                    <button className="inline-flex items-center rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
+                        Get started
+                    </button>                
+                </Link>
             </div>
         </main>
         

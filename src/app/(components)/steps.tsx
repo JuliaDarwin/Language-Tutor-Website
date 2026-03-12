@@ -24,8 +24,8 @@ export default function Steps(){
         <div>
             <ol className="space-y-6 list-inside">
                 {steps.map((step, index) => (
-                    <li key={index} className="flex items-center text-lg font-medium">
-                        <span className="flex items-center justify-center w-10 h-10 mr-4 bg-indigo-600 text-white rounded-full font-bold">
+                    <li key={index} className="flex items-center text-md font-medium">
+                        <span className="flex items-center justify-center w-10 h-10 mr-4 bg-indigo-600 text-white text-sm rounded-full font-bold">
                             {index + 1}
                         </span>
                         {step.text}
