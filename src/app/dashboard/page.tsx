@@ -20,9 +20,15 @@ export default async function DashboardPage() {
              const dates = (userObj?.publicMetadata?.scheduled_dates as string[]) || [];
              const bookings = (userObj?.publicMetadata?.scheduled_bookings as any[]) || [];
              
-             // Prefer bookings if available, else map old dates to booking-like objects for rendering
-             // In a mixed scenario, merge them carefully by ensuring uniqueness, but for now we prioritize bookings if present.
-             const items = bookings.length >= dates.length ? bookings : dates.map((d, i) => bookings.find(b => b.date === d) || { date: d, uid: null });
+             // Start with all our fully tracked bookings
+             const items = [...bookings];
+             
+             // Then append any 'legacy' dates from old test data that aren't already tracked in bookings
+             dates.forEach((d) => {
+               if (!bookings.find((b) => b.date === d)) {
+                 items.push({ date: d, uid: null });
+               }
+             });
 
              if (items.length === 0) {
                return (
