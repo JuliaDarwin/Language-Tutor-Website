@@ -1,24 +1,28 @@
 "use client";
-
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function PricingPlans() {
   const plans = [
     {
-      name: "Basic",
+      name: "Slow pace",
       price: "$150",
-      features: ["1 Lesson/Week", "Basic Support"],
+      features: ["5 lessons"],
+      lessons: 5,
       highlighted: false,
     },
     {
-      name: "Pro",
+      name: "Commitment",
       price: "$300",
-      features: ["2 Lessons/week", "Priority Support"],
+      features: ["10 lessons"],
+      lessons: 10,
       highlighted: true,
     },
     {
       name: "Intensive",
       price: "$450",
-      features: ["3 Lessons/week", "24/7 Support"],
+      features: ["15 lessons"],
+      lessons: 15,
       highlighted: false,
     },
   ];
@@ -53,16 +57,35 @@ export default function PricingPlans() {
                 ))}
               </ul>
             </div>
-
-            <button
-              className={`w-full py-3 rounded-xl font-semibold transition ${
-                plan.highlighted
-                  ? "bg-[var(--blue)] text-white hover:bg-[var(--lightblue)] hover:text-black"
-                  : "bg-[var(--lightblue)]/20 text-black hover:bg-[var(--blue)]/80 hover:text-white"
-              }`}
-            >
-              Choose Plan
-            </button>
+                {/*if user is signed out, when clicking choose plan it will redirect to sign in*/}
+            <SignedOut>
+              <SignInButton mode="modal" forceRedirectUrl="/auth-callback">
+                <button
+                  className={`w-full py-3 rounded-xl font-semibold transition ${
+                    plan.highlighted
+                      ? "bg-[var(--blue)] text-white hover:bg-[var(--lightblue)] hover:text-black"
+                      : "bg-[var(--lightblue)]/20 text-black hover:bg-[var(--blue)]/80 hover:text-white"
+                  }`}
+                >
+                  Choose Plan
+                </button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              {/* aqui creem un link dinamic, tot el que va dp de "?" és info extra, llavors es, link a /payment
+              + passar el parametre lessons = whatever*/}
+              <Link href={`/payment?lessons=${plan.lessons}`} className="w-full block">
+                <button
+                  className={`w-full py-3 rounded-xl font-semibold transition ${
+                    plan.highlighted
+                      ? "bg-[var(--blue)] text-white hover:bg-[var(--lightblue)] hover:text-black"
+                      : "bg-[var(--lightblue)]/20 text-black hover:bg-[var(--blue)]/80 hover:text-white"
+                  }`}
+                >
+                  Choose Plan
+                </button>
+              </Link>
+            </SignedIn>
           </div>
         ))}
       </div>

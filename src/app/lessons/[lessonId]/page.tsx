@@ -96,7 +96,7 @@ export default async function LessonPage({
       </div>
       {/*packages*/}
       <div>
-          <h2 id="pricing-plans">Choose Your Plan</h2>
+          <h2 id="pricing-plans">Choose Your Package</h2>
           <PricingPlans />
       </div>
     </div>

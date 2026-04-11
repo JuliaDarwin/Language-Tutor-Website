@@ -4,13 +4,14 @@ import Link from "next/link";
 import ThemeToggle from "./theme-toggle";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import { SignInButton, SignOutButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, SignedIn, SignedOut, UserButton, useUser } from "@clerk/nextjs";
 
 
 
 export default function Nav() {
   
     const [open, setOpen] = useState(false);
+    const { isSignedIn, user } = useUser();
 
     return (
       <header>
@@ -43,17 +44,57 @@ export default function Nav() {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/lessons"
-                  className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
-                >
-                  Book a lesson
-                </Link>
-              </li>
+              {isSignedIn && user?.publicMetadata?.role === "admin" ? (
+                <>
+                  <li>
+                    <Link
+                      href="/admin"
+                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/lessons"
+                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                    >
+                      Lessons
+                    </Link>
+                  </li>
+                </>
+              ) : isSignedIn ? (
+                <>
+                  <li>
+                    <Link
+                      href="/dashboard"
+                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/lessons"
+                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                    >
+                      Lessons
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <Link
+                    href="/lessons"
+                    className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
+                  >
+                    Book a lesson
+                  </Link>
+                </li>
+              )}
               <li className="hidden sm:flex flex-row items-center gap-3">
                 <SignedOut>
-                  <SignInButton mode="modal">
+                  <SignInButton mode="modal" forceRedirectUrl="/auth-callback">
                      <button className="text-slate-100 hover:text-indigo-200 transition-colors">
                          Sign in
                       </button>
@@ -99,17 +140,57 @@ export default function Nav() {
                       Contact
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="/lessons"
-                      className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
-                    >
-                      Book a lesson
-                    </Link>
-                  </li>
+                  {isSignedIn && user?.publicMetadata?.role === "admin" ? (
+                    <>
+                      <li>
+                        <Link
+                          href="/admin"
+                          className="text-slate-100 hover:text-indigo-200 transition-colors"
+                        >
+                          Admin Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/lessons"
+                          className="text-slate-100 hover:text-indigo-200 transition-colors"
+                        >
+                          Lessons
+                        </Link>
+                      </li>
+                    </>
+                  ) : isSignedIn ? (
+                    <>
+                      <li>
+                        <Link
+                          href="/dashboard"
+                          className="text-slate-100 hover:text-indigo-200 transition-colors"
+                        >
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/lessons"
+                          className="text-slate-100 hover:text-indigo-200 transition-colors"
+                        >
+                          Lessons
+                        </Link>
+                      </li>
+                    </>
+                  ) : (
+                    <li>
+                      <Link
+                        href="/lessons"
+                        className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
+                      >
+                        Book a lesson
+                      </Link>
+                    </li>
+                  )}
                   <li className="flex flex-row items-center gap-4">
                     <SignedOut>
-                      <SignInButton mode="modal">
+                      <SignInButton mode="modal" forceRedirectUrl="/auth-callback">
                         <button className="text-slate-100 hover:text-indigo-200 transition-colors">
                          Sign in
                         </button>
