@@ -16,7 +16,7 @@ export async function scheduleLessonAction(dateStr?: string, uid?: string) {
     //we are telling typescript what type of data to expect, either a number or undefined. this way we avoid that if is undefined we get an error of object unknown
     const currentUnscheduled = user.publicMetadata.unscheduled_lessons as number | undefined;
     const currentScheduled = user.publicMetadata.scheduled_lessons as number | undefined;
-    const currentDates = (user.publicMetadata.scheduled_dates as string[]) || [];
+    //const currentDates = (user.publicMetadata.scheduled_dates as string[]) || [];
     const currentBookings = (user.publicMetadata.scheduled_bookings as any[]) || [];
 
     //now here we treat the value of the data
@@ -27,7 +27,7 @@ export async function scheduleLessonAction(dateStr?: string, uid?: string) {
     // In a real scenario you would block booking if unscheduledCount <= 0.
     const newUnscheduled = Math.max(0, unscheduledCount - 1);
     const newScheduled = scheduledCount + 1;
-    const newDates = dateStr ? [...currentDates, dateStr] : currentDates;
+    //const newDates = dateStr ? [...currentDates, dateStr] : currentDates;
     const newBookings = dateStr && uid ? [...currentBookings, { date: dateStr, uid }] : currentBookings;
 
     try {
@@ -36,7 +36,7 @@ export async function scheduleLessonAction(dateStr?: string, uid?: string) {
                 ...user.publicMetadata,
                 unscheduled_lessons: newUnscheduled,
                 scheduled_lessons: newScheduled,
-                scheduled_dates: newDates,
+                //scheduled_dates: newDates,
                 scheduled_bookings: newBookings
             },
         });

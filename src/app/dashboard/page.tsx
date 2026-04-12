@@ -1,6 +1,8 @@
 import { auth, currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
-//this function 
+import { ClientDate } from "../(components)/clientDate";
+
+//this function retrieves the scheduled bookings from the metadata
 export default async function DashboardPage() {
   const authObj = await auth();
   const userObj = await currentUser();
@@ -17,13 +19,13 @@ export default async function DashboardPage() {
           <h2 className="text-xl font-semibold mb-4">📅 Next Lessons</h2>
 
           {(() => {
-             const dates = (userObj?.publicMetadata?.scheduled_dates as string[]) || [];
+             //const dates = (userObj?.publicMetadata?.scheduled_dates as string[]) || [];
              const bookings = (userObj?.publicMetadata?.scheduled_bookings as any[]) || [];
              
              // Start with all our fully tracked bookings
              const items = [...bookings];
              
-             // Then append any 'legacy' dates from old test data that aren't already tracked in bookings
+             /* Then append any 'legacy' dates from old test data that aren't already tracked in bookings
              dates.forEach((d) => {
                if (!bookings.find((b) => b.date === d)) {
                  items.push({ date: d, uid: null });
@@ -36,33 +38,20 @@ export default async function DashboardPage() {
                    No upcoming lessons scheduled.
                  </div>
                );
-             }
+             } */
 
              return items.map((booking, idx) => {
-               const date = new Date(booking.date);
-               const formattedDate = date.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
-               const formattedTime = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
                return (
                   <div key={idx} className="flex items-center justify-between mb-3 border-b border-gray-200 pb-3 last:border-0 last:pb-0">
-                    <div>
-                      <p className="font-medium">Lesson</p>
-                      <p className="text-sm text-gray-500">{formattedDate}, {formattedTime}</p>
-                    </div>
+                    <ClientDate dateString={booking.date} />
 
-                    <div className="flex gap-2">
-                      {booking.uid ? (
-                        <>
+                    <div className="flex gap-2">          
                           <Link href={`https://cal.com/reschedule/${booking.uid}`} target="_blank" className="bg-amber-400 hover:bg-amber-300 px-4 py-2 rounded-lg text-sm flex items-center">
                             Reschedule
                           </Link>
                           <Link href={`https://cal.com/cancel/${booking.uid}`} target="_blank" className="bg-amber-400 hover:bg-amber-300 px-4 py-2 rounded-lg text-sm flex items-center">
                             Cancel
-                          </Link>
-                        </>
-                      ) : (
-                        <span className="text-xs text-gray-400 italic flex items-center">Legacy booking</span>
-                      )}
+                          </Link>     
                     </div>
                   </div>
                )
