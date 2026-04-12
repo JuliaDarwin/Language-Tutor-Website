@@ -12,12 +12,12 @@ export async function POST(req: Request) {
         const triggerEvent = payload.triggerEvent;
         // The booking uid
         const uid = payload.uid || payload.payload?.uid;
-        
+
         if (triggerEvent === "BOOKING_CANCELLED") {
             const email = payload.payload?.attendees?.[0]?.email || payload.attendees?.[0]?.email;
             if (!email) {
-                 console.error("Webhook Cancel Error: No email found in payload");
-                 return NextResponse.json({ error: "No email found" }, { status: 400 });
+                console.error("Webhook Cancel Error: No email found in payload");
+                return NextResponse.json({ error: "No email found" }, { status: 400 });
             }
 
             const client = await clerkClient();
@@ -25,15 +25,15 @@ export async function POST(req: Request) {
             const user = users.data[0];
 
             if (!user) {
-                 console.error("Webhook Cancel Error: User not found in Clerk for email:", email);
-                 return NextResponse.json({ error: "User not found" }, { status: 404 });
+                console.error("Webhook Cancel Error: User not found in Clerk for email:", email);
+                return NextResponse.json({ error: "User not found" }, { status: 404 });
             }
 
             const currentBookings = (user.publicMetadata.scheduled_bookings as any[]) || [];
-            
+
             const newBookings = currentBookings.filter(b => b.uid !== uid);
             const newDates = (user.publicMetadata.scheduled_dates as string[])?.filter(
-                 d => !currentBookings.find(b => b.uid === uid && b.date === d)
+                d => !currentBookings.find(b => b.uid === uid && b.date === d)
             ) || [];
 
             const currentUnscheduled = (user.publicMetadata.unscheduled_lessons as number) || 0;
@@ -56,8 +56,8 @@ export async function POST(req: Request) {
         if (triggerEvent === "BOOKING_RESCHEDULED") {
             const email = payload.payload?.attendees?.[0]?.email || payload.attendees?.[0]?.email;
             if (!email) {
-                 console.error("Webhook Reschedule Error: No email found in payload");
-                 return NextResponse.json({ error: "No email found" }, { status: 400 });
+                console.error("Webhook Reschedule Error: No email found in payload");
+                return NextResponse.json({ error: "No email found" }, { status: 400 });
             }
 
             const client = await clerkClient();
@@ -65,29 +65,42 @@ export async function POST(req: Request) {
             const user = users.data[0];
 
             if (!user) {
-                 console.error("Webhook Reschedule Error: User not found in Clerk for email:", email);
-                 return NextResponse.json({ error: "User not found" }, { status: 404 });
+                console.error("Webhook Reschedule Error: User not found in Clerk for email:", email);
+                return NextResponse.json({ error: "User not found" }, { status: 404 });
             }
 
-            // In reschedule, we want to update the date of the booking
+            // In reschedule, Cal.com creates a completely new UID and gives us the old one inside rescheduleUid!
             const newDate = payload.payload?.startTime || payload.startTime;
+            const rescheduleUid = payload.payload?.rescheduleUid || payload.rescheduleUid;
 
             const currentBookings = (user.publicMetadata.scheduled_bookings as any[]) || [];
-            const bookingIndex = currentBookings.findIndex(b => b.uid === uid);
-            
             let newBookings = [...currentBookings];
-            
+
+            // Find the old booking using the old UID (or fallback to new UID just in case)
+            const bookingIndex = newBookings.findIndex(b => b.uid === rescheduleUid || b.uid === uid);
+
             if (bookingIndex !== -1) {
-                newBookings[bookingIndex] = { ...newBookings[bookingIndex], date: newDate };
+                newBookings[bookingIndex] = { uid, date: newDate };
             } else {
                 newBookings.push({ uid, date: newDate });
+            }
+
+            // Cleanup legacy un-linked dates array to keep profile clean
+            const oldDateStr = payload.payload?.rescheduleStartTime;
+            let newDates = (user.publicMetadata.scheduled_dates as string[]) || [];
+            if (oldDateStr) {
+                const idx = newDates.indexOf(oldDateStr);
+                if (idx !== -1) {
+                    newDates = [...newDates.slice(0, idx), ...newDates.slice(idx + 1), newDate];
+                }
             }
 
             await client.users.updateUser(user.id, {
                 publicMetadata: {
                     ...user.publicMetadata,
                     scheduled_bookings: newBookings,
-                    // Keep counts the same since it's just a move
+                    scheduled_dates: newDates
+                    // Keep lesson counts the same since it's just a move!
                 }
             });
             console.log("Webhook Processed: Reschedule updated successfully in Clerk.");
