@@ -30,7 +30,7 @@ export default function Nav() {
             <ul className="flex flex-row items-center justify-center gap-6 text-sm font-medium">
               <li>
                 <Link
-                  href="/about"
+                  href="/#about"
                   className="text-slate-100 hover:text-indigo-200 transition-colors"
                 >
                   About me
@@ -70,15 +70,7 @@ export default function Nav() {
                       href="/dashboard"
                       className="text-slate-100 hover:text-indigo-200 transition-colors"
                     >
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/lessons"
-                      className="text-slate-100 hover:text-indigo-200 transition-colors"
-                    >
-                      Lessons
+                      My Lessons
                     </Link>
                   </li>
                 </>
@@ -126,7 +118,7 @@ export default function Nav() {
                 <ul className="flex flex-col items-start gap-4 text-sm font-medium">
                   <li>
                     <Link
-                      href="/about"
+                      href="/#about"
                       className="text-slate-100 hover:text-indigo-200 transition-colors"
                     >
                       About me
@@ -166,15 +158,7 @@ export default function Nav() {
                           href="/dashboard"
                           className="text-slate-100 hover:text-indigo-200 transition-colors"
                         >
-                          Dashboard
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          href="/lessons"
-                          className="text-slate-100 hover:text-indigo-200 transition-colors"
-                        >
-                          Lessons
+                          My Lessons
                         </Link>
                       </li>
                     </>

@@ -5,10 +5,10 @@ import { Roles } from "../../../types/globals";
 import { revalidatePath } from "next/cache";
 
 
-export async function setRole(formData:FormData) {
+export async function setRole(formData: FormData) {
     const { sessionClaims } = await auth();
 
-    if(sessionClaims?.metadata?.role !== "admin"){
+    if (sessionClaims?.metadata?.role !== "admin") {
         throw new Error("Not authorized");
     }
 
@@ -27,3 +27,23 @@ export async function setRole(formData:FormData) {
 }
 
 //in about min 8 of video 90 of next js 15 tutorial,explains a function to remove a role. very similar
+
+export default async function updateUnscheduled(userId: string, count: number) {
+
+    const client = await clerkClient();
+
+    try {
+        const user = await client.users.getUser(userId);
+        await client.users.updateUser(userId, {
+            publicMetadata: {
+                ...user.publicMetadata,
+                unscheduled_lessons: count
+            }
+        })
+
+        revalidatePath(`/admin/${userId}`);
+    } catch (e) {
+        throw new Error("Failed to update lessons");
+    }
+
+}

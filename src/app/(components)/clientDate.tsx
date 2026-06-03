@@ -8,10 +8,10 @@ export function ClientDate({ dateString }: { dateString: string }) {
   useEffect(() => {
     const date = new Date(dateString);
     setFormatted({
-      date: date.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' }),
-      time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      date: date.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }),
+      time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' })
     });
-  }, [dateString]);
+  }, [dateString]); //means run this code whenever datestrign changes
 
   if (!formatted) {
     // Render an invisible placeholder with the same height to preserve layout
@@ -26,8 +26,8 @@ export function ClientDate({ dateString }: { dateString: string }) {
 
   return (
     <div>
-      <p className="font-medium">Lesson</p>
-      <p className="text-sm text-gray-500">{formatted.date}, {formatted.time}</p>
+      <p className="text-sm text-gray-500">Lesson</p>
+      <p className="text-md">{formatted.date}, {formatted.time}</p>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import { clerkClient } from "@clerk/nextjs/server"
 import { setRole } from "./actions";
+import Link from "next/link"
 
 
 export default async function Admin(){
@@ -29,8 +30,16 @@ export default async function Admin(){
                                     )?.emailAddress
                                 }
                             </div>
+
                             <div className="dark:text-neutral-200">
                                 {user.publicMetadata.role as string}
+                            </div>
+
+                            <div className="dark:text-neutral-200">
+                                {user.publicMetadata.scheduled_lessons as number !== 0 && user.publicMetadata.scheduled_lessons as number !== undefined ? `${user.publicMetadata.scheduled_lessons as number} scheduled lessons` : `0 scheduled lessons`}
+                            </div>
+                            <div className="dark:text-neutral-200">
+                                {user.publicMetadata.unscheduled_lessons as number} unscheduled lessons
                             </div>
                         </div>
 
@@ -54,6 +63,7 @@ export default async function Admin(){
                                     > Make Moderator
                                 </button>
                             </form>
+                            <Link href={`/admin/${user.id}`} className="px-2 py-1 text-sm border border-neutral-300"> Manage User </Link>
 
                             {/* aqui no funcionaria perque no he fet la funcio removerole, esta al video 90 min 8
                             <form action={removeRole} className="inline">

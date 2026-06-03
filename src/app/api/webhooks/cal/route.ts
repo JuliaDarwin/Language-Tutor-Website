@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { clerkClient } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
+import prisma from "@/lib/db";
 
 //this function receives the webhook events, figures out what happened (cancel or reschedule), finds the user by email and updates 
 //their lesson data and refreshes the UI in dashboard
@@ -52,6 +53,10 @@ export async function POST(req: Request) {
                     //scheduled_dates: newDates
                 }
             });
+
+            await prisma.lesson.deleteMany({
+                where: { uid: uid }
+            })
             console.log("Webhook Processed: Cancellation updated successfully in Clerk.");
             revalidatePath("/dashboard");
             return NextResponse.json({ message: "Booking cancelled, credit restored" });
@@ -78,6 +83,19 @@ export async function POST(req: Request) {
             const newDate = payload.payload?.startTime || payload.startTime;
             const rescheduleUid = payload.payload?.rescheduleUid || payload.rescheduleUid;
 
+            try {
+                await prisma.lesson.updateMany({
+                    where: { uid: rescheduleUid },
+                    data: {
+                        uid: uid, // the new uid for the rescheduled lesson
+                        date: new Date(newDate)
+                    }
+                });
+            } catch (error) {
+                console.log("error in rescheduling", error);
+            }
+
+
             const currentBookings = (user.publicMetadata.scheduled_bookings as any[]) || [];
             let newBookings = [...currentBookings];
 
@@ -90,15 +108,6 @@ export async function POST(req: Request) {
                 newBookings.push({ uid, date: newDate });
             }
 
-            /* Cleanup legacy un-linked dates array to keep profile clean
-            const oldDateStr = payload.payload?.rescheduleStartTime;
-            let newDates = (user.publicMetadata.scheduled_dates as string[]) || [];
-            if (oldDateStr) {
-                const idx = newDates.indexOf(oldDateStr);
-                if (idx !== -1) {
-                    newDates = [...newDates.slice(0, idx), ...newDates.slice(idx + 1), newDate];
-                }
-            }*/
 
             await client.users.updateUser(user.id, {
                 publicMetadata: {
@@ -107,7 +116,7 @@ export async function POST(req: Request) {
                     //scheduled_dates: newDates
                 }
             });
-            console.log("Webhook Processed: Reschedule updated successfully in Clerk.");
+            console.log("Webhook Processed: Reschedule updated successfully in Postgres.");
             revalidatePath("/dashboard");
             return NextResponse.json({ message: "Booking rescheduled" });
         }

@@ -9,7 +9,7 @@ they should be redirected to homepage
 const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)", "/about(.*)", "/contact(.*)", "/lessons(.*)", "/api/webhooks(.*)"]);
 
 //we create the protected admin route
-const isAdminRoute = createRouteMatcher(["/admin(.*)"]);
+const isAdminRoute = createRouteMatcher(["/admin(.*)", "/admin/[users](.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
   //if(!isPublicRoute(req)) await auth.protect();

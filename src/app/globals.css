@@ -5,17 +5,18 @@
   --background: lightgrey;
   --foreground: #171717;
   --blue: #2e23fb;
-  --lightblue: #23a8fb; 
+  --lightblue: #23a8fb;
 }
+
 .dark {
   --background: #2a2929;
   --foreground: lightgrey;
 
 }
 
-*{
+* {
   box-sizing: border-box;
-  
+
 }
 
 body {
@@ -25,18 +26,23 @@ body {
     sans-serif;
 }
 
-h1{
+h1 {
   font-size: 3rem;
-  font-family:  poppins, system-ui, sans-serif;
+  font-family: poppins, system-ui, sans-serif;
   font-weight: bold;
   margin-top: 2rem;
   text-align: center;
 }
-h2{
+
+h2 {
   font-size: 2rem;
-  font-family:  poppins, system-ui, sans-serif;
+  font-family: poppins, system-ui, sans-serif;
   font-weight: semi-bold;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-  
+
+}
+
+html {
+  scroll-behavior: smooth;
 }

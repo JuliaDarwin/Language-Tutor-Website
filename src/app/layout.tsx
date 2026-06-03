@@ -36,30 +36,30 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Nav />
              {children}
+            <footer className="bg-black text-white text-center 2xl:text-3xl mt-20 px-10 py-5 w-full">
+              <div className="flex flex-col sm:flex-row gap-5 sm:gap-0 justify-between 2xl:justify-center 2xl:gap-20 items-center mb-4 w-full"> 
+                <div>
+                  <p>Pordon School of Catalan © 2025</p>
+                </div>
+              <div className="flex flex-row xl:items-center gap-15 mb-5 sm:mb-0">
+                <div>
+                  <p className="font-bold pb-3">FOLLOW US</p>
+                  <div className="flex flex-row justify-evenly items-center ">
+                    <a href="https://www.instagram.com/saileach.gan.teorainn/" target="_blank"><FaInstagram className="text-2xl cursor-pointer hover:text-pink-500" /></a>
+                    <FaFacebook className="text-2xl cursor-pointer hover:text-blue-500" />
+                  </div>
+                </div>
+                <div>
+                  <p className="font-bold pb-0 sm:pb-3">LEGAL</p>
+                  <p>Privacy Policy</p>
+                  <p>Terms and Conditions</p>
+                </div>
+              </div>
+              </div>
+              
+            </footer>
           </ThemeProvider>          
         </body>
-        <footer className="bg-black text-white text-center 2xl:text-3xl mt-20 px-10 py-5 w-full">
-          <div className="flex flex-col sm:flex-row gap-5 sm:gap-0 justify-between 2xl:justify-center 2xl:gap-20 items-center mb-4 w-full"> 
-            <div>
-              <p>Pordon School of Catalan © 2025</p>
-            </div>
-          <div className="flex flex-row xl:items-center gap-15 mb-5 sm:mb-0">
-            <div>
-              <p className="font-bold pb-3">FOLLOW US</p>
-              <div className="flex flex-row justify-evenly items-center ">
-                <a href="https://www.instagram.com/saileach.gan.teorainn/" target="_blank"><FaInstagram className="text-2xl cursor-pointer hover:text-pink-500" /></a>
-                <FaFacebook className="text-2xl cursor-pointer hover:text-blue-500" />
-              </div>
-            </div>
-            <div>
-              <p className="font-bold pb-0 sm:pb-3">LEGAL</p>
-              <p>Privacy Policy</p>
-              <p>Terms and Conditions</p>
-            </div>
-          </div>
-          </div>
-          
-        </footer>
     </html>
     </ClerkProvider>
   );

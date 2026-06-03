@@ -37,7 +37,7 @@ export default function Homepage() {
           </div>
         </div>
       </header>
-         <main className="mx-auto mt-16 mb-20 w-[90%] max-w-5xl space-y-20">
+         <main className="mx-auto mt-16 mb-20 w-[90%] max-w-5xl space-y-30">
         {/* 1. Trust & benefits */}
         <section className="text-center space-y-6">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
@@ -88,6 +88,17 @@ export default function Homepage() {
           </div>
           <div className="rounded-2xl bg-[var(--surface)] p-6 lg:p-8 ">
             <Steps />
+          </div>
+        </section>
+
+        {/*about me*/}
+        <section id="about" className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
+          <div>
+            <img src={"/teacher.jpeg"} alt="teacher pic" />
+          </div>
+          <div>
+            <p className="text-xs text-center font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">About me</p>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit voluptatem a asperiores sint tempore labore, sequi fugiat ut blanditiis quidem veniam quasi vel sed quam porro nihil, assumenda eligendi quas!</p>
           </div>
         </section>
 

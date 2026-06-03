@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ProgressBar from "./progressbar";
+import { sendEmail } from "../contact/actions";
 
 
 export default function ContactForm() {
@@ -24,6 +25,7 @@ function prevStep() {
         message: "",
     });
     const [msg, setMsg] = useState("");
+    const [showForm, setShowForm] = useState(true);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.currentTarget;
@@ -34,15 +36,28 @@ function prevStep() {
         }));
     };
     
+    const clientAction = async (fd: FormData) => {
+        fd.set("name", formData.name);
+        fd.set("email", formData.email);
+        fd.set("weeklyLessons", formData.weeklyLessons);
+        fd.set("lessonType", formData.lessonType);
+        fd.set("message", formData.message);
+        await sendEmail(fd);
+        
+    };
+
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setMsg(`Form Submitted!\n`+`Name: ${formData.name}\nEmail: ${formData.email}\nWeekly Lessons: ${formData.weeklyLessons}\nLesson Type: ${formData.lessonType}\nMessage: ${formData.message}`+`We will get back to you in 5 days`);
+        //e.preventDefault();
+        setMsg(`Name: ${formData.name}\nEmail: ${formData.email}\nWeekly Lessons: ${formData.weeklyLessons}\nLesson Type: ${formData.lessonType}\nMessage: ${formData.message}`);
+        setShowForm(false);
     }
     return (
         <div className="max-w-md w-[90%] mx-auto p-10 bg-white text-black shadow-lg rounded sm:mt-15 mb-10">
             <h1 className="text-center 2xl:text-xl">Contact Form</h1>
-        <ProgressBar step={step} />
-        <form onSubmit={handleSubmit}>
+        { showForm ? 
+        <div>
+            <ProgressBar step={step} />
+            <form onSubmit={handleSubmit} action={clientAction}>
          { step == 1 && (
             <fieldset className="mt-2">
                 <label htmlFor="weeklyLessons" className="block mb-2">Number of Weekly Lessons:</label>
@@ -100,6 +115,13 @@ function prevStep() {
             )}   
             
         </form>
+        </div> :
+        <div className="flex flex-col gap-3 m-5 text-center">
+            <p className="text-xl">Your form was successfully submitted!</p>
+            <p className="font-bold">We will get back to you within 3 working days.</p>
+            <p className="whitespace-pre-line">{msg}</p>
         </div>
-    )}
+        }       
+        </div>
+   )}
 

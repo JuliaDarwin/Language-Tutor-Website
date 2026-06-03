@@ -4,9 +4,14 @@ import Cal, { getCalApi } from "@calcom/embed-react";
 import { useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { scheduleLessonAction } from "./actions";
+import { useRouter } from "next/navigation";
 
+/*this function uses use effect to, when react mounts, it gets the cal api and uses the cal fuinction to havea n add event listener for
+when the booking is successful. the callbacj is the function schedulelessonaction, with parameters previously extracted from the <e className="detail data"
+which is an object that cal api gives*/
 export default function Booking() {
   const { user, isLoaded } = useUser();
+  const router =useRouter();
 
   useEffect(() => {
     let isSubscribed = true;
@@ -17,22 +22,21 @@ export default function Booking() {
       cal("on", {
         action: "bookingSuccessful", 
         callback: async (e: any) => { 
-          // React Strict Mode workaround: if unmounted, don't trigger the action.
-          // Note: cal("on") stacks listeners, so in a real app you'd want to use cal("off") in cleanup,
-          // but if Cal embed doesn't support off, we guard against duplicate executions manually.
-          if (!isSubscribed) return;
+          // e.detail.data contains the booking info from cal.com
+          if (!isSubscribed) return; // prevents duplicate execution if react re renders, important i react strict mode
           
           try {
             console.log("Cal.com Booking Output:", e.detail.data);
             const dateStr = e.detail.data.date || e.detail.data.startTime;
             const uid = e.detail.data.uid || e.detail.data.booking?.uid || e.detail.data.bookingId;
             await scheduleLessonAction(dateStr, uid);
+            router.push("/dashboard")
           } catch (error) {
             console.error("Failed to update schedule status:", error);
           }
         }
       });
-    })();
+    })(); 
     
     return () => {
       isSubscribed = false;
