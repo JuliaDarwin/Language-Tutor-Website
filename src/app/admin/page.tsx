@@ -1,5 +1,5 @@
 import { clerkClient } from "@clerk/nextjs/server"
-import { setRole } from "./actions";
+import { removeRole, setRole } from "./actions";
 import Link from "next/link"
 
 
@@ -53,19 +53,6 @@ export default async function Admin(){
                                     > Make Admin
                                 </button>
                             </form>
-
-                            <form action={setRole} className="inline">
-                                <input type="hidden" value={user.id} name="id" />
-                                <input type="hidden" value="moderator" name="role" />
-                                <button 
-                                    type="submit"
-                                    className="px-2 py-1 text-sm border border-neutral-300"
-                                    > Make Moderator
-                                </button>
-                            </form>
-                            <Link href={`/admin/${user.id}`} className="px-2 py-1 text-sm border border-neutral-300"> Manage User </Link>
-
-                            {/* aqui no funcionaria perque no he fet la funcio removerole, esta al video 90 min 8
                             <form action={removeRole} className="inline">
                                 <input type="hidden" value={user.id} name="id" />
                                 <button 
@@ -73,7 +60,10 @@ export default async function Admin(){
                                     className="px-2 py-1 text-sm border border-neutral-300"
                                     > Remove Role
                                 </button>
-                            </form>*/}
+                            </form>
+                            <Link href={`/admin/${user.id}`} className="px-2 py-1 text-sm border border-neutral-300"> Manage User </Link>
+
+                            
                         </div>
                     </div>
 

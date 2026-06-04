@@ -28,6 +28,26 @@ export async function setRole(formData: FormData) {
 
 //in about min 8 of video 90 of next js 15 tutorial,explains a function to remove a role. very similar
 
+export async function removeRole(formData: FormData) {
+    const { sessionClaims } = await auth();
+
+    if (sessionClaims?.metadata?.role !== "admin") {
+        throw new Error("Not authorized");
+    }
+
+    const client = await clerkClient();
+    const id = formData.get("id") as string;
+
+    try {
+        await client.users.updateUser(id, {
+            publicMetadata: { role: null }, //here is just role because it will get whatever value is in the json, and we had set it to admin
+        });
+
+    } catch {
+        throw new Error("Failed to remove role");
+    }
+}
+
 export default async function updateUnscheduled(userId: string, count: number) {
 
     const client = await clerkClient();
