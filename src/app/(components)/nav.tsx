@@ -56,10 +56,10 @@ export default function Nav() {
                   </li>
                   <li>
                     <Link
-                      href="/lessons"
+                      href="/dashboard"
                       className="text-slate-100 hover:text-indigo-200 transition-colors"
                     >
-                      Lessons
+                      My Lessons
                     </Link>
                   </li>
                 </>

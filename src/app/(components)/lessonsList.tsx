@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ClientDate } from "./clientDate";
 
-export default function LessonsList({ items }: { items: any[] }) {
+export default function LessonsList({ items, lessonWith }: { items: any[]; lessonWith?: string }) {
   const [showNextLessons, setShowNextLessons] = useState(true);
 
   const handleLessons = () => {
@@ -34,7 +34,7 @@ export default function LessonsList({ items }: { items: any[] }) {
                 key={idx}
                 className="flex items-center justify-between mb-3 gap-8 border-gray-200 pb-5 last:border-0 last:pb-0"
               >
-                <ClientDate dateString={booking.date} />
+                <ClientDate dateString={booking.date} lessonWith={booking.lessonWith || lessonWith}/>
                 {new Date(booking.date).getTime() - Date.now() > 86400000 ? (
                   <div className="flex gap-2">
                     <Link
@@ -80,7 +80,7 @@ export default function LessonsList({ items }: { items: any[] }) {
                 key={idx}
                 className="flex items-center justify-center mb-3 gap-8 border-gray-200 pb-5 last:border-0 last:pb-0"
               >
-                <ClientDate dateString={booking.date} />
+                <ClientDate dateString={booking.date} lessonWith={booking.lessonWith || lessonWith}/>
               </div>
             ))
           )}

@@ -18,7 +18,10 @@ export default async function UserManagement({
     const { users } = await params;
 
     const user = usersList.find((u) => u.id === users);
-    const userId = user?.id
+    const userId = user?.id;
+    const userName = user?.firstName || undefined;
+    const userLastName = user?.lastName || undefined;
+    const userEmail = user?.emailAddresses.find((email) => email.id === user.primaryEmailAddressId)?.emailAddress;
     const unscheduled_lessons = user?.publicMetadata.unscheduled_lessons as number || 0;
     
     const bookings= await prisma.lesson.findMany({
@@ -34,29 +37,14 @@ export default async function UserManagement({
         <div>
             <h1>User Management</h1>
             <div className ="flex flex-col gap-8 items-center justify-center">
-                <h2>{user.firstName} {user.lastName}</h2>
-                <p className="font-bold">Email of the user: <span className="font-normal ml-5">{user.emailAddresses.find((email) => email.id === user.primaryEmailAddressId)?.emailAddress}</span></p>
+                <h2>{userName} {user.lastName}</h2>
+                <p className="font-bold">Email of the user: <span className="font-normal ml-5">{userEmail}</span></p>
                     <h3 className="font-bold text-lg mb-5"> <EditUserLessons userId={user.id} initialCount={unscheduled_lessons}></EditUserLessons>unscheduled lessons</h3>
 
-                <LessonsList items={bookings}/>
-                {/*<div className="flex flex-col gap-2 justify-center items-center">
-                    <ol>
-                        {futureLessons.map((lesson, index) => (
-                            <li className="flex gap-5" key={index}><ClientDate dateString={new Date(lesson.date).toISOString()}/>
-                            <button>
-                                <Link href={`https://cal.com/reschedule/${lesson.uid}`} target="_blank" className="bg-amber-400 hover:bg-amber-300 px-4 py-2 rounded-lg text-sm flex items-center">
-                                    Reschedule
-                                </Link>
-                            </button>
-                            <button>
-                                <Link href={`https://cal.com/cancel/${lesson.uid}`} target="_blank" className="bg-amber-400 hover:bg-amber-300 px-4 py-2 rounded-lg text-sm flex items-center">
-                                    Cancel
-                                </Link>
-                            </button>
-                            </li>
-                        ))}
-                    </ol>
-                </div>*/}
+                <LessonsList items={bookings} lessonWith={`${user.firstName} ${user.lastName}`}/>
+            <Link href={`/booking?userId=${userId}&userName=${userName}&userEmail=${userEmail}`}
+                    className="inline-flex items-center mt-20 mx-6 rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
+                    Schedule Lessons</Link>
             <Link href="/admin" className="underline italic hover:bold">Back to users list</Link>
             </div>
         </div>

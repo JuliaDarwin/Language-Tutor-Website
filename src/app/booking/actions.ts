@@ -6,15 +6,26 @@ import { revalidatePath } from "next/cache";
 
 //this function accesses the current user's data from Clerk, decreases their unscheduled_lessons count by 1, and increases their scheduled_lessons count by 1.
 
-export async function scheduleLessonAction(dateStr?: string, uid?: string) {
-    const { userId } = await auth();
+export async function scheduleLessonAction(dateStr?: string, uid?: string, targetUserId?: string) {
+    const { userId, sessionClaims } = await auth();
 
     if (!userId) {
         throw new Error("Not authorized");
     }
 
     const client = await clerkClient();
-    const user = await client.users.getUser(userId);
+
+    // Determine the subject of the booking.
+    // If targetUserId is provided, verify the logged-in user is an admin.
+    let activeUserId = userId;
+    if (targetUserId && targetUserId !== userId) {
+        if (sessionClaims?.metadata?.role !== "admin") {
+            throw new Error("Not authorized to schedule lessons for other users");
+        }
+        activeUserId = targetUserId;
+    }
+
+    const user = await client.users.getUser(activeUserId);
 
     // we are telling typescript what type of data to expect, either a number or undefined. this way we avoid that if is undefined we get an error of object unknown
     const currentUnscheduled = user.publicMetadata.unscheduled_lessons as number | undefined;
@@ -34,13 +45,13 @@ export async function scheduleLessonAction(dateStr?: string, uid?: string) {
         if (dateStr && uid) {
             await prisma.lesson.create({
                 data: {
-                    userId: userId,
+                    userId: activeUserId,
                     date: new Date(dateStr),
                     uid: uid
                 }
             })
         }
-        await client.users.updateUser(userId, { //update user is a clerk method to update based on the userid
+        await client.users.updateUser(activeUserId, { //update user is a clerk method to update based on the userid
             publicMetadata: {
                 ...user.publicMetadata,
                 unscheduled_lessons: newUnscheduled,
@@ -55,9 +66,6 @@ export async function scheduleLessonAction(dateStr?: string, uid?: string) {
     }
 
     revalidatePath("/dashboard");
-
-
-
-
+    revalidatePath(`/admin/${activeUserId}`);
 }
 

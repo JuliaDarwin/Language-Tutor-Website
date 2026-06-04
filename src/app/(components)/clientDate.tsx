@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export function ClientDate({ dateString }: { dateString: string }) {
+export function ClientDate({ dateString, lessonWith }: { dateString: string; lessonWith?: string }) {
   const [formatted, setFormatted] = useState<{ date: string; time: string } | null>(null);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export function ClientDate({ dateString }: { dateString: string }) {
     // without triggering a hydration mismatch
     return (
       <div>
-        <p className="font-medium opacity-0">Lesson</p>
+        <p className="font-medium opacity-0">Lesson with {lessonWith}</p>
         <p className="text-sm text-gray-500 opacity-0">Loading time...</p>
       </div>
     );
@@ -26,7 +26,7 @@ export function ClientDate({ dateString }: { dateString: string }) {
 
   return (
     <div>
-      <p className="text-sm text-gray-500">Lesson</p>
+      <p className="text-sm text-gray-500">Lesson with {lessonWith}</p>
       <p className="text-md">{formatted.date}, {formatted.time}</p>
     </div>
   );
