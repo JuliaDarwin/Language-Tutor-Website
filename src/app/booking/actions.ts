@@ -29,7 +29,6 @@ export async function scheduleLessonAction(dateStr?: string, uid?: string) {
     // In a real scenario you would block booking if unscheduledCount <= 0.
     const newUnscheduled = Math.max(0, unscheduledCount - 1);
     const newScheduled = scheduledCount + 1;
-    //const newBookings = dateStr && uid ? [...currentBookings, { date: dateStr, uid }] : currentBookings;
 
     try {
         if (dateStr && uid) {
@@ -46,8 +45,7 @@ export async function scheduleLessonAction(dateStr?: string, uid?: string) {
                 ...user.publicMetadata,
                 unscheduled_lessons: newUnscheduled,
                 scheduled_lessons: newScheduled,
-                //scheduled_dates: newDates,
-                //scheduled_bookings: newBookings
+
             },
         });
 

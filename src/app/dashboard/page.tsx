@@ -15,14 +15,10 @@ export default async function DashboardPage() {
   const userName = userObj?.firstName;
   const userId = userObj?.id;
 
-  //const bookings = (userObj?.publicMetadata?.scheduled_bookings as any[]) || [];
   const bookings= await prisma.lesson.findMany({
   where: { userId: userId },
   orderBy: { date: 'asc' }
 });
-
-  // Start with all our fully tracked bookings and sort them by date
-  //const items = [...bookings].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
   const futureLessons =  bookings.filter(
     (p) => new Date(p.date).getTime() - Date.now() >= 0
