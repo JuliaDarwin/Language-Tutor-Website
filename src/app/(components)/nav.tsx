@@ -22,16 +22,16 @@ export default function Nav() {
               <ThemeToggle />
               <Link
                 href="/"
-                className="font-semibold text-lg text-white tracking-tight hover:text-indigo-200 transition-colors"
+                className="font-semibold text-lg text-white tracking-tight hover:text-[var(--indigo-light)] transition-colors"
               >
-                Pordon School of Catalan
+                Júlia Language Tutoring
               </Link>
             </div>
             <ul className="flex flex-row items-center justify-center gap-6 text-sm font-medium">
               <li>
                 <Link
                   href="/#about"
-                  className="text-slate-100 hover:text-indigo-200 transition-colors"
+                  className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                 >
                   About me
                 </Link>
@@ -39,7 +39,7 @@ export default function Nav() {
               <li>
                 <Link
                   href="/contact"
-                  className="text-slate-100 hover:text-indigo-200 transition-colors"
+                  className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                 >
                   Contact
                 </Link>
@@ -49,7 +49,7 @@ export default function Nav() {
                   <li>
                     <Link
                       href="/admin"
-                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                     >
                       Admin Dashboard
                     </Link>
@@ -57,7 +57,7 @@ export default function Nav() {
                   <li>
                     <Link
                       href="/dashboard"
-                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                     >
                       My Lessons
                     </Link>
@@ -68,7 +68,7 @@ export default function Nav() {
                   <li>
                     <Link
                       href="/dashboard"
-                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                     >
                       My Lessons
                     </Link>
@@ -87,7 +87,7 @@ export default function Nav() {
               <li className="hidden sm:flex flex-row items-center gap-3">
                 <SignedOut>
                   <SignInButton mode="modal" forceRedirectUrl="/auth-callback">
-                     <button className="text-slate-100 hover:text-indigo-200 transition-colors">
+                     <button className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors">
                          Sign in
                       </button>
                   </SignInButton>
@@ -119,7 +119,7 @@ export default function Nav() {
                   <li>
                     <Link
                       href="/#about"
-                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                     >
                       About me
                     </Link>
@@ -127,7 +127,7 @@ export default function Nav() {
                   <li>
                     <Link
                       href="/contact"
-                      className="text-slate-100 hover:text-indigo-200 transition-colors"
+                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                     >
                       Contact
                     </Link>
@@ -137,7 +137,7 @@ export default function Nav() {
                       <li>
                         <Link
                           href="/admin"
-                          className="text-slate-100 hover:text-indigo-200 transition-colors"
+                          className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                         >
                           Admin Dashboard
                         </Link>
@@ -145,7 +145,7 @@ export default function Nav() {
                       <li>
                         <Link
                           href="/lessons"
-                          className="text-slate-100 hover:text-indigo-200 transition-colors"
+                          className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                         >
                           Lessons
                         </Link>
@@ -156,7 +156,7 @@ export default function Nav() {
                       <li>
                         <Link
                           href="/dashboard"
-                          className="text-slate-100 hover:text-indigo-200 transition-colors"
+                          className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                         >
                           My Lessons
                         </Link>
@@ -175,7 +175,7 @@ export default function Nav() {
                   <li className="flex flex-row items-center gap-4">
                     <SignedOut>
                       <SignInButton mode="modal" forceRedirectUrl="/auth-callback">
-                        <button className="text-slate-100 hover:text-indigo-200 transition-colors">
+                        <button className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors">
                          Sign in
                         </button>
                       </SignInButton>
@@ -186,7 +186,7 @@ export default function Nav() {
                       <SignOutButton />
                       <Link
                         href="/user-profile"
-                        className="text-slate-100 hover:text-indigo-200 transition-colors"
+                        className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                       >
                         Profile
                       </Link>

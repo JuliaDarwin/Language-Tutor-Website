@@ -3,6 +3,7 @@ import notFound from "@/app/notFound";
 import PricingPlans from "@/app/(components)/pricingPlans";
 import WhyOurLessons from "@/app/(components)/whyOurLessons";
 import Steps from "@/app/(components)/steps";
+import { SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 //defining the lessons data:
 
@@ -13,7 +14,8 @@ const lessonsData = [
     description: "Practice speaking through a variety of topics",
     details:
       "Focus on fluency, pronunciation, and colloquial expressions. Ideal for students who want to travel or socialize.",
-    features: ["50 min lessons", "Vocabulary lists", "Audio recordings"],
+    features: ["50 min lessons", "Useful topics", "Listening practice"],
+    image: "/conversational.jpg",
   },
   {
     id: "2",
@@ -22,6 +24,7 @@ const lessonsData = [
     details:
       "A structured approach to learning the language foundations. We cover all four skills: reading, writing, listening, and speaking.",
     features: ["50 min lessons", "Materials included", "Homework assignments"],
+    image: "/lessoncard.jpg",
   },
   {
     id: "3",
@@ -34,6 +37,7 @@ const lessonsData = [
       "Mocking exams included",
       "Correction included",
     ],
+    image: "/aboutbackground.jpg",
   },
 ];
 
@@ -51,54 +55,144 @@ export default async function LessonPage({
   }
 
   return (
-    <div className="mx-auto mt-16 text-center lg:text-lg">
-      {/*
-       */}{" "}
-      <Link
-        href="/lessons"
-        className="font-bold underline hover:text-blue-500 text-lg"
-      >
-        Back to Lessons
-      </Link>
-      <div className=" grid grid-cols-1 sm:grid-cols-2 gap-8 mt-8 justify-center mx-auto p-8 2xl:w-[50%]">
-        <div className="fkex flex-col text-center">
-          <h1 className="text-4xl font-bold my-6">{lesson.name}</h1>
-          <p className="2xl:text-2xl">{lesson.description}</p>
-          <div className="p-8">
-            <ul className="2xl:text-2xl">
+    <>
+      <header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/75 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
+        <div
+          className="pointer-events-none absolute -right-24 top-1/4 h-56 w-56 rounded-full bg-[var(--indigo)]/25 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-[var(--amber)]/20 blur-3xl"
+          aria-hidden
+        />
+        <div className="relative z-10 mx-auto w-full max-w-6xl text-left text-white">
+          <Link
+            href="/lessons"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--indigo-light)] hover:text-white transition mb-6"
+          >
+            ← Back to Lessons
+          </Link>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            {lesson.name}
+          </h1>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-200 sm:text-base">
+            {lesson.description}
+          </p>
+        </div>
+      </header>
+
+      <main className="mx-auto my-24 w-[92%] max-w-6xl space-y-28 sm:space-y-32">
+        {/* Section 1: Overview */}
+        <section className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
+          <div className="relative mx-auto w-full max-w-md md:max-w-none order-2 md:order-1">
+            
+            <img
+              src={lesson.image}
+              alt={lesson.name}
+              className="relative aspect-[4/3] w-full rounded-2xl shadow-xl object-cover"
+            />
+          </div>
+          
+          <div className="space-y-6 text-left order-1 md:order-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+              Overview
+            </p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              Lesson Details
+            </h2>
+            <p className="text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base">
+              {lesson.details}
+            </p>
+            
+            <ul className="space-y-3 pt-2">
               {lesson.features.map((feature) => (
-                <li>{feature}</li>
+                <li key={feature} className="flex items-center gap-3 text-sm text-[var(--foreground-muted)] sm:text-base">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--indigo-light)] text-xs font-bold text-[var(--indigo)]" aria-hidden>
+                    ✓
+                  </span>
+                  {feature}
+                </li>
               ))}
             </ul>
+
+            <div className="pt-4">
+              <SignedOut>
+                <SignUpButton mode="modal" forceRedirectUrl="/auth-callback">
+                  <button className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/25 transition hover:bg-amber-300 hover:shadow-amber-400/30 sm:text-lg">
+                    Buy Lessons
+                  </button>
+                </SignUpButton>
+              </SignedOut>
+              <SignedIn>
+                <a
+                  href="#pricing-plans"
+                  className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/25 transition hover:bg-amber-300 hover:shadow-amber-400/30 sm:text-lg hover:cursor-pointer"
+                >
+                  Buy Lessons
+                </a>
+              </SignedIn>
+            </div>
           </div>
-           <button className="inline-flex items-center rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
-              <a href="#pricing-plans">Choose Your Package</a> 
-           </button> 
-        </div>
-        <img src={"/conversational.jpg"} className="mx-auto w-full 2xl:max-w-[90%]"></img>
-      </div>
+        </section>
 
-      {/*why our lessons*/}
-      <div>
-        <h2 className="font-bold">Why {lesson.name}</h2>
-        <p className="2xl:text-2xl">{lesson.details}</p>
-        <WhyOurLessons />
-      </div>
+        {/* Section 2: Why Our Lessons */}
+        <section className="text-center space-y-6">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+              Why learn with me
+            </p>
+            <h2 className="mx-auto mt-3 max-w-3xl text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
+              Why {lesson.name}
+            </h2>
+            <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base lg:text-lg">
+              Get the resources, guidance, and community support you need to succeed.
+            </p>
+          </div>
+          <WhyOurLessons />
+        </section>
 
-      {/*steps*/}
-     <div className="p-15">
-        <h2>Get Started</h2>
-        <div className="2xl:text-2xl grid grid-cols-1 sm:grid-cols-2 gap-8 justify-center items-center mt-10 w-[60%] mx-auto">
-           <Steps />
-           <img src={"/getstarted.jpg"}></img>
-        </div>
-        
-      </div>
-      {/*packages*/}
-      <div>
-          <h2 id="pricing-plans">Choose Your Package</h2>
+        {/* Section 3: Get Started Steps */}
+        <section className="grid grid-cols-1 items-center md:ml-10 gap-12 md:grid-cols-2 md:gap-16">
+          <div className="space-y-4 text-left md:ml-10 md:pr-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+              How it works
+            </p>
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
+              Start learning in four simple steps
+            </h2>
+            <p className="text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base lg:text-lg">
+              Our streamlined process helps you start lessons quickly. Book your package, pick your times, and meet your native tutor online.
+            </p>
+            <div className="relative mx-auto w-full max-w-md md:max-w-none pt-4">
+              {/*<img
+                src="/getstarted.jpg"
+                alt="Get started"
+                className="relative aspect-[4/3] w-full rounded-2xl object-cover shadow-xl ring-1 ring-[var(--border-subtle)]"
+              />*/}
+            </div>
+          </div>
+          <div className="p-6 ml-5 sm:p-8 lg:p-10">
+            <Steps />
+          </div>
+        </section>
+
+        {/* Section 4: Choose Your Package 
+        <section className="space-y-6 text-center">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+              Pricing
+            </p>
+            <h2 id="pricing-plans" className="text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
+              Choose Your Package
+            </h2>
+            <p className="mx-auto max-w-3xl text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base lg:text-lg">
+              Find a structured monthly pricing plan that fits your pace and budget.
+            </p>
+          </div>
           <PricingPlans />
-      </div>
-    </div>
+        </section>*/}
+      </main>
+    </>
   );
 }

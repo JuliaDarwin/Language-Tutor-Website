@@ -19,15 +19,17 @@ export function ClientDate({ dateString, lessonWith }: { dateString: string; les
     return (
       <div>
         <p className="font-medium opacity-0">Lesson with {lessonWith}</p>
-        <p className="text-sm text-gray-500 opacity-0">Loading time...</p>
+        <p className="text-sm text-[var(--foreground-muted)] opacity-0">Loading time...</p>
       </div>
     );
   }
 
   return (
     <div>
-      <p className="text-sm text-gray-500">Lesson with {lessonWith}</p>
-      <p className="text-md">{formatted.date}, {formatted.time}</p>
+      <p className="text-sm text-[var(--foreground-muted)]">Lesson with {lessonWith}</p>
+      <p className="font-medium text-[var(--foreground)]">
+        {formatted.date}, {formatted.time}
+      </p>
     </div>
   );
 }

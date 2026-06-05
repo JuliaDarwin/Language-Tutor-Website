@@ -1,17 +1,47 @@
 @import "tailwindcss";
-@tailwind utilities;
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: lightgrey;
   --foreground: #171717;
-  --blue: #2e23fb;
-  --lightblue: #23a8fb;
+  /* warm — labels, CTAs */
+  --amber: #fbbf24;
+  --amber-light: #fde68a;
+  --amber-muted: #fef3c7;
+  --primary: #d97706;
+  --primary-light: #f59e0b;
+  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
+  /* cool — accents, hovers, structure */
+  --indigo-strong: #3f36e6;
+  --indigo: #4f46e5;
+  --indigo-light: #a5b4fc;
+  --indigo-muted: #e0e7ff;
+  --indigo-soft: color-mix(in srgb, var(--indigo) 10%, transparent);
+  --accent-soft: color-mix(in srgb, var(--indigo-light) 22%, transparent);
+  --foreground-muted: #525252;
+  --surface: #e8e8ec;
+  --border-subtle: color-mix(in srgb, var(--foreground) 8%, transparent);
+  /* legacy aliases */
+  --blue: var(--indigo);
+  --lightblue: var(--indigo-light);
 }
 
 .dark {
   --background: #2a2929;
-  --foreground: lightgrey;
-
+  --foreground: #f5f5f5;
+  --primary: #fbbf24;
+  --primary-light: #fde68a;
+  --indigo: #818cf8;
+  --indigo-light: #c7d2fe;
+  --indigo-muted: color-mix(in srgb, var(--indigo) 18%, transparent);
+  --foreground-muted: #a3a3a3;
+  --surface: #3d3d42;
+  --border-subtle: color-mix(in srgb, var(--foreground) 14%, transparent);
+  --primary-soft: color-mix(in srgb, var(--amber) 16%, transparent);
+  --indigo-soft: color-mix(in srgb, var(--indigo) 14%, transparent);
+  --accent-soft: color-mix(in srgb, var(--indigo-light) 12%, transparent);
+  --blue: var(--indigo);
+  --lightblue: var(--indigo-light);
 }
 
 * {
@@ -27,11 +57,8 @@ body {
 }
 
 h1 {
-  font-size: 3rem;
   font-family: poppins, system-ui, sans-serif;
   font-weight: bold;
-  margin-top: 2rem;
-  text-align: center;
 }
 
 h2 {

@@ -34,18 +34,18 @@ export default async function UserManagement({
         notFound();
     }
     return (
-        <div>
-            <h1>User Management</h1>
+        <div className="mx-auto w-[92%] max-w-4xl py-12 sm:py-16 text-[var(--foreground)]">
+            <h1 className="text-3xl font-bold tracking-tight text-center sm:text-left">User Management</h1>
             <div className ="flex flex-col gap-8 items-center justify-center">
-                <h2>{userName} {user.lastName}</h2>
-                <p className="font-bold">Email of the user: <span className="font-normal ml-5">{userEmail}</span></p>
-                    <h3 className="font-bold text-lg mb-5"> <EditUserLessons userId={user.id} initialCount={unscheduled_lessons}></EditUserLessons>unscheduled lessons</h3>
+                <h2 className="text-2xl font-semibold text-[var(--indigo)]">{userName} {userLastName}</h2>
+                <p className="font-bold">Email of the user: <span className="font-normal ml-5 text-[var(--foreground-muted)]">{userEmail}</span></p>
+                    <h3 className="font-bold text-lg mb-5 text-[var(--foreground)]"> <EditUserLessons userId={user.id} initialCount={unscheduled_lessons}></EditUserLessons>unscheduled lessons</h3>
 
-                <LessonsList items={bookings} lessonWith={`${user.firstName} ${user.lastName}`}/>
+                <LessonsList items={bookings} lessonWith={`${userName} ${userLastName}`}/>
             <Link href={`/booking?userId=${userId}&userName=${userName}&userEmail=${userEmail}`}
-                    className="inline-flex items-center mt-20 mx-6 rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
+                    className="inline-flex items-center mt-20 mx-6 rounded-full bg-[var(--amber)] px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-lg shadow-amber-500/20 hover:bg-amber-300 transition-colors">
                     Schedule Lessons</Link>
-            <Link href="/admin" className="underline italic hover:bold">Back to users list</Link>
+            <Link href="/admin" className="underline italic text-[var(--primary)] hover:text-[var(--primary-light)]">Back to users list</Link>
             </div>
         </div>
     )

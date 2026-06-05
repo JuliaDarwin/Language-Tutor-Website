@@ -1,6 +1,24 @@
 "use client";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
+import {
+  FeaturedCardShell,
+  cardBodyTextClass,
+  cardCheckClass,
+  cardPriceClass,
+  cardPriceMutedClass,
+  cardTitleClass,
+  featuredCardInner,
+  popularBadgeClass,
+  standardCardInner,
+} from "./featuredCardShell";
+
+const planButtonClass = (highlighted: boolean) =>
+  `w-full rounded-full py-3 text-sm font-semibold transition ${
+    highlighted
+      ? "bg-[var(--amber)] text-slate-950 hover:bg-amber-300"
+      : "bg-[var(--indigo-soft)] text-[var(--indigo)] hover:bg-[var(--indigo)] hover:text-white"
+  }`;
 
 export default function PricingPlans() {
   const plans = [
@@ -28,67 +46,54 @@ export default function PricingPlans() {
   ];
 
   return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 2xl:gap-20 justify-center mt-8 w-[70%] sm:w-[90%] 2xl:w-[80%] 2xl:text-2xl mx-auto">
-        {plans.map((plan) => (
-          <div
-            key={plan.name}
-            className={`rounded-2xl shadow-lg p-8 bg-white flex flex-col justify-between transition transform hover:-translate-y-2 ${
-              plan.highlighted
-                ? "border-2 border-[var(--lightblue)] scale-105"
-                : "border border-gray-200"
-            }`}
-          >
+    <div className="mx-auto mt-10 grid w-full max-w-5xl grid-cols-1 items-stretch justify-center gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3 lg:items-center 2xl:gap-10">
+      {plans.map((plan) => (
+        <FeaturedCardShell key={plan.name} highlighted={plan.highlighted}>
+          <article className={plan.highlighted ? featuredCardInner : standardCardInner}>
+            {plan.highlighted && (
+              <span className={popularBadgeClass}>Popular</span>
+            )}
             <div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800">
-                {plan.name}
-              </h3>
-              <p className="text-4xl font-extrabold mb-6 text-gray-900">
+              <h3 className={cardTitleClass(plan.highlighted)}>{plan.name}</h3>
+              <p className={cardPriceClass(plan.highlighted)}>
                 {plan.price}
-                <span className="text-lg font-medium text-gray-500">
+                <span
+                  className={`text-base font-medium ${cardPriceMutedClass(plan.highlighted)}`}
+                >
                   /month
                 </span>
               </p>
 
-              <ul className="space-y-3 mb-6">
+              <ul className="mt-6 space-y-3">
                 {plan.features.map((feature, index) => (
-                  <li key={index} className="text-gray-600">
-                    • {feature}
+                  <li
+                    key={index}
+                    className={`flex items-center gap-2 text-sm ${cardBodyTextClass(plan.highlighted)}`}
+                  >
+                    <span className={cardCheckClass(plan.highlighted)} aria-hidden>
+                      ✓
+                    </span>
+                    {feature}
                   </li>
                 ))}
               </ul>
             </div>
-                {/*if user is signed out, when clicking choose plan it will redirect to sign in*/}
+
             <SignedOut>
               <SignInButton mode="modal" forceRedirectUrl="/auth-callback">
-                <button
-                  className={`w-full py-3 rounded-xl font-semibold transition ${
-                    plan.highlighted
-                      ? "bg-[var(--blue)] text-white hover:bg-[var(--lightblue)] hover:text-black"
-                      : "bg-[var(--lightblue)]/20 text-black hover:bg-[var(--blue)]/80 hover:text-white"
-                  }`}
-                >
-                  Choose Plan
+                <button className={`mt-8 ${planButtonClass(plan.highlighted)}`}>
+                  Choose plan
                 </button>
               </SignInButton>
             </SignedOut>
             <SignedIn>
-              {/* aqui creem un link dinamic, tot el que va dp de "?" és info extra, llavors es, link a /payment
-              + passar el parametre lessons = whatever*/}
-              <Link href={`/payment?lessons=${plan.lessons}`} className="w-full block">
-                <button
-                  className={`w-full py-3 rounded-xl font-semibold transition ${
-                    plan.highlighted
-                      ? "bg-[var(--blue)] text-white hover:bg-[var(--lightblue)] hover:text-black"
-                      : "bg-[var(--lightblue)]/20 text-black hover:bg-[var(--blue)]/80 hover:text-white"
-                  }`}
-                >
-                  Choose Plan
-                </button>
+              <Link href={`/payment?lessons=${plan.lessons}`} className="mt-8 block w-full">
+                <button className={planButtonClass(plan.highlighted)}>Choose plan</button>
               </Link>
             </SignedIn>
-          </div>
-        ))}
-      </div>
-    
+          </article>
+        </FeaturedCardShell>
+      ))}
+    </div>
   );
 }

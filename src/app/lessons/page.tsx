@@ -1,80 +1,158 @@
-import Link from "next/link"
+import Link from "next/link";
+import {
+  FeaturedCardShell,
+  cardBodyTextClass,
+  cardCheckClass,
+  cardPriceClass,
+  cardPriceMutedClass,
+  cardTitleClass,
+  featuredCardInner,
+  popularBadgeClass,
+  standardCardInner,
+} from "../(components)/featuredCardShell";
 
-export default function Lessons(){
-    
-    return (
-        <>
-        <header className="p-4 relative h-60 bg-[url('/lessonsbg.png')] text-center">
-       
-        </header>
-        <main className="mx-15">
-            <h1>Lesson Types</h1>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mx-auto max-w-6xl my-16 2xl:gap-20 2xl:max-w-[60%]">
-                {/* First lesson type */}
-                <div className="lg:text-lg bg-gray-100 ring-1 ring-gray-300 grid grid-rows-[1fr_auto] rounded-xl p-8 gap-6 text-center hover:scale-105 transform transition-transform">
-                    <div className=" grid grid-rows-[auto_auto_auto_1fr] gap-y-5">
-                        <p className="text-[var(--blue)] text-lg xl:text-2xl font-bold">Conversational</p>
-                        <p className="text-4xl text-black font-bold">28$<span className="text-base">/lesson</span></p>
-                        <p className="text-black">Practice speaking through a variety of topics</p>
-                        <ul className="text-black">
-                            <li>
-                                <span aria-hidden className="text-green-700 mr-2">&#10003;</span>
-                                50 min lessons</li>
-                            <li><span aria-hidden className="text-green-700 mr-2">&#10003;</span>
-                                Vocabulary lists</li>
-                        </ul>
-                        </div>
-                        <Link href="/lessons/1" className="text-center text-[var(--blue)] mt-5 p-2 bg-[var(--lightblue)]/20 rounded-md hover:bg-[var(--blue)]/80 hover:text-white">Learn More</Link>
-                    
-                </div>
-                {   /* Second lesson type */}
-                <div className="lg:text-lg relative text-center bg-gray-800 text-white ring-2 ring-[var(--lightblue)] p-8 grid grid-rows-[1fr_auto] gap-6 rounded-xl scale-105 hover:scale-115 transform transition-transform">
-                    <div className="absolute -top-3 right-3 bg-linear-to-r from-[var(--lightblue)] to-[var(--blue)] rounded-full px-3 py-1 text-xs font-bold text-white ">Most Popular
-                    </div>
-                    <div className="grid grid-rows-[auto_auto_auto_1fr] gap-y-5">
-                        <p className="text-[var(--lightblue)] text-lg font-bold text-center xl:text-2xl">General</p>
-                        <p className="text-4xl font-bold">30$<span className="text-base">/lesson</span></p>
-                        <p>Cover speaking, grammar and vocabulary.</p>
-                        <ul>
-                            <li><span aria-hidden className="text-green-700 mr-2">&#10003;</span>
-                                50 min lessons</li>
-                            <li><span aria-hidden className="text-green-700 mr-2">&#10003;</span>
-                            Materials included</li>
-                        </ul>
-                     </div>
-                    <Link href="/lessons/2" className="text-center mt-5 p-2 bg-linear-to-r from-[var(--lightblue)] to-[var(--blue)] text-white rounded-md">Learn More</Link>
-                    
-                </div>
+const lessonTypes = [
+  {
+    id: "1",
+    name: "Conversational",
+    price: "28",
+    description: "Practice speaking through a variety of topics",
+    features: ["50 min lessons", "Vocabulary lists"],
+    highlighted: false,
+  },
+  {
+    id: "2",
+    name: "General",
+    price: "30",
+    description: "Cover speaking, grammar and vocabulary.",
+    features: ["50 min lessons", "Materials included"],
+    highlighted: true,
+  },
+  {
+    id: "3",
+    name: "Exams",
+    price: "35",
+    description: "Official Ramon Llull & Generalitat de Catalunya exams",
+    features: ["50 min lessons", "Mock exams included"],
+    highlighted: false,
+  },
+] as const;
 
-                {   /* Third lesson type */ }
-                <div className="lg:text-lg text-center bg-gray-100 ring-1 ring-gray-300 grid grid-rows-[1fr_auto] rounded-xl p-8 gap-6 hover:scale-105 transform transition-transform">
-                    <div className="grid grid-rows-[auto_auto_auto_1fr] gap-y-5">
-                        <p className="text-[var(--blue)] text-lg font-bold text-center xl:text-2xl">Exams</p>
-                        <p className="text-4xl text-black font-bold">35$<span className="text-base">/lesson</span></p>
-                        <p className="text-black">Official Ramon Llull & Generalitat de Catalunya exams</p>
-                        <ul className="text-black">
-                            <li><span aria-hidden className="text-green-700 mr-2">&#10003;</span>
-                            50 min lessons</li>
-                            <li><span aria-hidden className="text-green-700 mr-2">&#10003;</span>
-                            Mocking exams included</li>
-                        </ul>
-                        </div>
-                        <Link href="/lessons/3" className="text-center text-[var(--blue)] mt-5 p-2 bg-[var(--lightblue)]/20 rounded-md hover:bg-[var(--blue)]/80 hover:text-white">Learn More</Link>
-                    
-                </div>
+export default function Lessons() {
+  return (
+    <>
+      <header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/75 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
+        <div
+          className="pointer-events-none absolute -right-24 top-1/4 h-56 w-56 rounded-full bg-[var(--indigo)]/25 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -left-16 bottom-0 h-40 w-40 rounded-full bg-[var(--amber)]/20 blur-3xl"
+          aria-hidden
+        />
+        <div className="relative z-10 mx-auto w-full max-w-6xl text-left text-white">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--indigo-light)]">
+            Our offerings
+          </p>
+          <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            Lesson types
+          </h1>
+          <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-200 sm:text-base">
+            Choose the path that fits your goals — from everyday conversation to official exam prep.
+          </p>
+        </div>
+      </header>
+
+      <main className="mx-auto my-24 w-[92%] max-w-6xl">
+        <section className="text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+            Lesson types
+          </p>
+          <h2 className="mx-auto mt-3 max-w-3xl text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
+            Find the right fit for your learning style
+          </h2>
+          <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base lg:text-lg">
+            All lessons are 50 minutes, taught online by native tutors from Barcelona.
+          </p>
+
+          <div className="mt-10 grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:items-center md:gap-8">
+            {lessonTypes.map((lesson) => (
+              <FeaturedCardShell key={lesson.id} highlighted={lesson.highlighted}>
+                <article
+                  className={lesson.highlighted ? featuredCardInner : standardCardInner}
+                >
+                  {lesson.highlighted && (
+                    <span className={popularBadgeClass}>Most popular</span>
+                  )}
+                  <div>
+                    <h3 className={cardTitleClass(lesson.highlighted)}>{lesson.name}</h3>
+                    <p className={cardPriceClass(lesson.highlighted)}>
+                      ${lesson.price}
+                      <span
+                        className={`text-base font-medium ${cardPriceMutedClass(lesson.highlighted)}`}
+                      >
+                        /lesson
+                      </span>
+                    </p>
+                    <p
+                      className={`mt-4 text-sm leading-relaxed ${cardBodyTextClass(lesson.highlighted)}`}
+                    >
+                      {lesson.description}
+                    </p>
+                    <ul className="mt-6 space-y-3">
+                      {lesson.features.map((feature) => (
+                        <li
+                          key={feature}
+                          className={`flex items-center justify-center gap-2 text-sm ${cardBodyTextClass(lesson.highlighted)}`}
+                        >
+                          <span className={cardCheckClass(lesson.highlighted)} aria-hidden>
+                            ✓
+                          </span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <Link
+                    href={`/lessons/${lesson.id}`}
+                    className={`mt-8 block w-full rounded-full py-3 text-center text-sm font-semibold transition ${
+                      lesson.highlighted
+                        ? "bg-[var(--amber)] text-slate-950 hover:bg-amber-300"
+                        : "bg-[var(--indigo-soft)] text-[var(--indigo)] hover:bg-[var(--indigo)] hover:text-white"
+                    }`}
+                  >
+                    Learn more
+                  </Link>
+                </article>
+              </FeaturedCardShell>
+            ))}
+          </div>
+        </section>
+
+        <section className="relative mt-20 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] dark:bg-[var(--foreground-muted)] px-6 py-12 text-center shadow-md sm:mt-24 sm:px-12 sm:py-14">
+          <div
+            className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[var(--indigo-soft)] via-transparent to-[var(--primary-soft)]"
+            aria-hidden
+          />
+          <div className="relative">
+            <h2 className="text-2xl font-semibold dark:text-[var(--background)] tracking-tight sm:text-3xl">
+              Want something different?
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-[var(--foreground-muted)] dark:text-[var(--background)] sm:text-base lg:text-lg">
+              Leave us a message with your request and we&apos;ll get back to you as soon as possible.
+            </p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-300 sm:text-lg"
+              >
+                Contact us
+              </Link>
             </div>
-            <div className="text-center mx-auto mt-20">
-                <h2>You want something different?</h2>
-                <div className="flex flex-col gap-4 items-center">
-                    <p className="lg:text-lg">Leave us a message with your request and we will get back to you as soon as possible!</p>
-                    <Link href="/contact" 
-                    className="inline-flex items-center rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
-                    Contact us</Link>
-                </div>
-                
-            </div>
-          </main>
-        </>
-
-    )
+          </div>
+        </section>
+      </main>
+    </>
+  );
 }

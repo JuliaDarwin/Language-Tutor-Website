@@ -1,30 +1,39 @@
 "use client";
 
-import React from "react";
-
-const message = ["Lessons", "Contact info", "Summary"];
+const labels = ["Lessons", "Contact info", "Summary"];
 
 function ProgressBar({ step }: { step: number }) {
-    return(
-        <div className="bg-white overflow-hidden mt-10">
-            <div className="w-full flex justify-between items-center">
-                <div className="w-full progress flex justify-between items-center gap-8">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 1 ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-600"}`}>1</div>
-                    <div className={`flex-1 h-1
-                  ${step >= 2 ? "bg-[var(--blue)]" : "bg-gray-200"}`}></div>
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 2 ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-600"}`}>2</div>
-                    <div className={`flex-1 h-1
-                  ${step >= 3 ? "bg-[var(--blue)]" : "bg-gray-200"}`}></div>
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step >= 3 ? "bg-indigo-600 text-white" : "bg-gray-200 text-gray-600"}`}>3</div>
-                </div>
-                
+  const steps = [1, 2, 3];
+
+  return (
+    <div className="mb-8">
+      <div className="flex items-center justify-between gap-2">
+        {steps.map((num, index) => (
+          <div key={num} className="flex flex-1 items-center last:flex-none">
+            <div
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-semibold transition-colors ${
+                step >= num
+                  ? "bg-[var(--indigo-light)] dark:bg-[var(--indigo)] text-[var(--indigo)] dark:text-white"
+                  : "bg-[var(--border-subtle)] text-[var(--foreground-muted)]"
+              }`}
+            >
+              {num}
             </div>
-            <div className="mt-10 text-bold text-center text-xl">
-                {message[step - 1]}
-            </div>
-        </div>
-    )
+            {index < steps.length - 1 && (
+              <div
+                className={`mx-2 h-0.5 flex-1 rounded-full transition-colors ${
+                  step > num ? "bg-[var(--indigo-light)]/70" : "bg-[var(--border-subtle)]"
+                }`}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+      <p className="mt-6 text-center text-sm font-semibold tracking-tight text-[var(--foreground)]">
+        {labels[step - 1]}
+      </p>
+    </div>
+  );
 }
 
-
-export default  ProgressBar;
+export default ProgressBar;

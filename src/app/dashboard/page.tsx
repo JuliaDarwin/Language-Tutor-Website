@@ -1,26 +1,26 @@
-import { auth, currentUser, clerkClient } from "@clerk/nextjs/server";
+import { currentUser, clerkClient } from "@clerk/nextjs/server";
 import Link from "next/link";
-import EditUserLessons from "../(components)/editUserLessons";
 import LessonsList from "../(components)/lessonsList";
 import prisma from "@/lib/db";
 
-//this function retrieves the scheduled bookings from the metadata
 export default async function DashboardPage() {
-  const authObj = await auth();
   const userObj = await currentUser();
   const isAdmin = userObj?.publicMetadata?.role === "admin";
+  const unscheduled_lessons =
+    (userObj?.publicMetadata.unscheduled_lessons as number) || 0;
+  let enoughCredit = true;
+  if (unscheduled_lessons <= 0) {
+    enoughCredit = false;
+  }
 
   const userName = userObj?.firstName || "";
   const userId = userObj?.id;
 
   let bookings = [];
-  //if its an admin, we get all the bookings, then retrieve all the clients list from clerk client, then for each booking we find the student whose id matches the userId of the booking
-  // then we set the name and last name in case the student exists, otherwise "unknown". in case its admin we return a single object that contains all properties of bookings plus a new property: the studentname
 
   if (isAdmin) {
-    // Admin (teacher) sees all lessons
     const rawBookings = await prisma.lesson.findMany({
-      orderBy: { date: 'asc' }
+      orderBy: { date: "asc" },
     });
 
     const client = await clerkClient();
@@ -28,17 +28,18 @@ export default async function DashboardPage() {
 
     bookings = rawBookings.map((booking) => {
       const student = usersList.find((u) => u.id === booking.userId);
-      const studentName = student ? `${student.firstName || ""} ${student.lastName || ""}`.trim()  : "Unknown Student";
+      const studentName = student
+        ? `${student.firstName || ""} ${student.lastName || ""}`.trim()
+        : "Unknown Student";
       return {
         ...booking,
         lessonWith: studentName,
       };
     });
   } else {
-    // Student sees only their own lessons
     bookings = await prisma.lesson.findMany({
       where: { userId: userId },
-      orderBy: { date: 'asc' }
+      orderBy: { date: "asc" },
     });
   }
 
@@ -52,48 +53,85 @@ export default async function DashboardPage() {
   const pastLessonsCount = pastLessons.length;
 
   return (
-    <>
-      <h1>Welcome back, {userName}</h1>
-      <div className="text-center">
-        <LessonsList items={bookings} lessonWith={isAdmin ? undefined : "Julia Darwin"}/>
-        
-        {/*balance*/}
-        <div className="max-w-xl mx-auto mt-10 p-5 bg-gray-100 text-black rounded-2xl shadow-lg">
-          <h2 className="text-xl font-semibold mb-4">Your Balance</h2>
+    <main className="mx-auto w-[92%] max-w-4xl px-0 py-12 sm:py-16">
+      <header className="mb-10 text-center sm:text-left">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+          {isAdmin ? "Admin dashboard" : "My lessons"}
+        </p>
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-[var(--foreground)] sm:text-4xl lg:text-5xl">
+          Welcome back{userName ? `, ${userName}` : ""}
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base">
+          {isAdmin
+            ? "View and manage all scheduled lessons."
+            : "Track your upcoming lessons, balance, and schedule new sessions."}
+        </p>
+      </header>
 
-          <div className="flex items-center justify-between">
-            <div className="text-center">
-              <p className="font-medium">Scheduled Lessons</p>
-              <p className="text-4xl text-bold text-[var(--blue)]">{futureLessonsCount}</p>
-              <p className="text-sm text-gray-400">Lessons booked</p>
-            </div>
+      <div className="space-y-8">
+      <section className="mx-auto w-full max-w-2xl rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-md sm:p-8">
+          <h2 className="!mt-0 mb-6 text-center text-xl font-semibold tracking-tight text-black dark:text-white">
+          👩🏻‍🏫 Your balance
+          </h2>
 
-            <div className="text-center">
-              <p className="font-medium">Past Lessons</p>
-              <p className="text-4xl text-bold text-[var(--blue)]">{pastLessonsCount}</p>
-              <p className="text-sm text-gray-400">Lessons completed</p>
-            </div>
-
-            <div className="text-center">
-              <p className="font-medium">Unscheduled Lessons</p>
-              <p className="text-4xl text-bold text-[var(--blue)]">
-                {userObj?.publicMetadata?.unscheduled_lessons 
-                  ? Number(userObj.publicMetadata.unscheduled_lessons) 
-                  : 0}
+          <div className="flex w-full flex-row items-start justify-between gap-6 sm:gap-8">
+            <div className="min-w-0 flex-1 text-center">
+              <p className="text-sm font-medium text-[var(--foreground)]">
+                Scheduled lessons
               </p>
-              <p className="text-sm text-gray-400">Not yet scheduled</p>
+              <p className="mt-1 text-4xl font-bold text-[var(--indigo)]">
+                {futureLessonsCount}
+              </p>
+              <p className="text-sm text-[var(--foreground-muted)]">Lessons booked</p>
             </div>
-          </div>
-        </div>
-        {/*<Link href="/payment" 
-                    className="inline-flex items-center rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
-                    Buy Lessons</Link>*/}
 
-        <Link href="/booking"
-              className="inline-flex items-center mt-20 mx-6 rounded-full bg-amber-400 px-6 py-3 text-lg 2xl:text-3xl font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors">
-          Schedule Lessons
-        </Link>
+            <div className="min-w-0 flex-1 text-center">
+              <p className="text-sm font-medium text-[var(--foreground)]">
+                Past lessons
+              </p>
+              <p className="mt-1 text-4xl font-bold text-[var(--indigo)]">
+                {pastLessonsCount}
+              </p>
+              <p className="text-sm text-[var(--foreground-muted)]">Lessons completed</p>
+            </div>
+
+            {!isAdmin && (
+              <div className="min-w-0 flex-1 text-center">
+                <p className="text-sm font-medium text-[var(--foreground)]">
+                  Unscheduled lessons
+                </p>
+                <p className="mt-1 text-4xl font-bold text-[var(--indigo)]">
+                  {userObj?.publicMetadata?.unscheduled_lessons
+                    ? Number(userObj.publicMetadata.unscheduled_lessons)
+                    : 0}
+                </p>
+                <p className="text-sm text-[var(--foreground-muted)]">Not yet scheduled</p>
+              </div>
+            )}
+          </div>
+        </section>
+        <LessonsList
+          items={bookings}
+          lessonWith={isAdmin ? undefined : "Julia"}
+        />
+
+      
+
+        <div className="flex justify-center pb-8">
+          {enoughCredit ? (
+            <Link
+              href="/booking"
+              className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-300 sm:text-lg"
+            >
+              Schedule lessons
+            </Link>
+          ) : (
+            <span className="inline-flex cursor-not-allowed items-center rounded-full bg-[var(--border-subtle)] px-7 py-3.5 text-base font-semibold text-[var(--foreground-muted)] dark:text-white sm:text-lg">
+              Not enough credit to schedule lessons
+            </span>
+          )}
+        </div>
       </div>
-    </>
+    </main>
   );
 }
