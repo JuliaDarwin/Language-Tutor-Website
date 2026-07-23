@@ -1,9 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import notFound from "@/app/notFound"; 
-import PricingPlans from "@/app/(components)/pricingPlans";
 import WhyOurLessons from "@/app/(components)/whyOurLessons";
 import Steps from "@/app/(components)/steps";
 import { SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { motion } from "framer-motion";
 
 //defining the lessons data:
 
@@ -56,7 +58,14 @@ export default async function LessonPage({
 
   return (
     <>
-      <header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center">
+      <motion.header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: 0.5, 
+        delay: 0.2,
+        ease: "easeOut" 
+      }}>
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/75 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
         <div
           className="pointer-events-none absolute -right-24 top-1/4 h-56 w-56 rounded-full bg-[var(--indigo)]/25 blur-3xl"
@@ -80,11 +89,18 @@ export default async function LessonPage({
             {lesson.description}
           </p>
         </div>
-      </header>
+      </motion.header>
 
       <main className="mx-auto my-24 w-[92%] max-w-6xl space-y-28 sm:space-y-32">
         {/* Section 1: Overview */}
-        <section className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
+        <motion.section className="grid grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16"
+         initial={{ opacity: 0, y: 15 }}
+         whileInView={{ opacity:1, y:0}}
+         viewport={{ 
+           once: true,    
+           amount: 0.3    
+         }}
+         transition={{ duration: 0.6, delay:0.3 }}>
           <div className="relative mx-auto w-full max-w-md md:max-w-none order-2 md:order-1">
             
             <img
@@ -134,10 +150,17 @@ export default async function LessonPage({
               </SignedIn>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Section 2: Why Our Lessons */}
-        <section className="text-center space-y-6">
+        <motion.section className="text-center space-y-6"
+        initial={{ opacity: 0, y: 15 }}
+         whileInView={{ opacity:1, y:0}}
+         viewport={{ 
+           once: true,    
+           amount: 0.3    
+         }}
+         transition={{ duration: 0.6 }}>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               Why learn with me
@@ -150,10 +173,17 @@ export default async function LessonPage({
             </p>
           </div>
           <WhyOurLessons />
-        </section>
+        </motion.section>
 
         {/* Section 3: Get Started Steps */}
-        <section className="grid grid-cols-1 items-center md:ml-10 gap-12 md:grid-cols-2 md:gap-16">
+        <motion.section className="grid grid-cols-1 items-center md:ml-10 gap-12 md:grid-cols-2 md:gap-16"
+        initial={{ opacity: 0, y: 15 }}
+         whileInView={{ opacity:1, y:0}}
+         viewport={{ 
+           once: true,    
+           amount: 0.3    
+         }}
+         transition={{ duration: 0.6 }}>
           <div className="space-y-4 text-left md:ml-10 md:pr-4">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               How it works
@@ -175,7 +205,7 @@ export default async function LessonPage({
           <div className="p-6 ml-5 sm:p-8 lg:p-10">
             <Steps />
           </div>
-        </section>
+        </motion.section>
 
         {/* Section 4: Choose Your Package 
         <section className="space-y-6 text-center">

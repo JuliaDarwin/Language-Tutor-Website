@@ -1,6 +1,8 @@
+"use client";
+
 import Link from "next/link"
 import Steps from "./(components)/steps"
-import PricingPlans from "./(components)/pricingPlans"
+import { motion } from "framer-motion";
 
 const benefits = [
   {
@@ -26,7 +28,20 @@ const benefits = [
 export default function Homepage() {
   return (
     <>
-      <header className="relative min-h-[60vh] flex items-center overflow-hidden px-6 py-24 sm:px-12 sm:py-28 lg:px-16 bg-[url('/homepagepic.webp')] bg-cover bg-center">
+      <motion.header className="relative min-h-[60vh] flex items-center overflow-hidden px-6 py-24 sm:px-12 sm:py-28 lg:px-16 bg-[url('/homepagepic.webp')] bg-cover bg-center"
+            // 1. Start invisible and pushed up by 50 pixels
+ initial={{ opacity: 0, y: -50 }}
+      
+      // 2. Animate to fully visible and its natural position (y: 0)
+      animate={{ opacity: 1, y: 0 }}
+      
+      // 3. Control the speed and feel
+      transition={{ 
+        duration: 0.8, 
+        delay: 0.2,
+        ease: "easeOut" 
+      }}>
+      
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/75 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
         <div
           className="pointer-events-none absolute -right-24 top-1/4 h-72 w-72 rounded-full bg-[var(--indigo)]/25 blur-3xl"
@@ -64,10 +79,17 @@ export default function Homepage() {
             </div>
           </div>
         </div>
-      </header>
+      </motion.header>
 
-      <main className="mx-auto my-24 w-[92%] max-w-6xl space-y-28 sm:space-y-32">
-        <section className="text-center">
+      <main className="mx-auto my-24 w-[92%] max-w-6xl space-y-28 sm:space-y-32" >
+        <motion.section className="text-center"
+         initial={{ opacity: 0, y: -50 }}
+      whileInView={{ opacity:1, y:0}}
+      viewport={{ 
+        once: true,    // Only animates once (doesn't repeat if you scroll up and down)
+        amount: 0.3    // Triggers when 30% of the element is visible
+      }}
+      transition={{ duration: 0.5 }}>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
             Why learn with me
           </p>
@@ -75,8 +97,8 @@ export default function Homepage() {
             A clear path from first words to fluent conversation
           </h2>
           <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base lg:text-lg">
-            Pordon School combines native tutors, structured materials, and flexible online lessons so you can
-            build real confidence in Catalan – whether you are preparing for life in Barcelona or an official exam.
+            I combine structured materials, and flexible and engaging online lessons so you can
+            build real confidence in Catalan or Spanish – whether you are preparing for life in Barcelona or an official exam.
           </p>
           <div className="mt-10 grid grid-cols-1 gap-5 text-left sm:grid-cols-3 sm:gap-6">
             {benefits.map((item) => (
@@ -95,9 +117,16 @@ export default function Homepage() {
               </article>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <section className="grid grid-cols-1 items-center justify-center gap-12 md:grid-cols-2 md:gap-16">
+        <motion.section className="grid grid-cols-1 items-center justify-center gap-12 md:grid-cols-2 md:gap-16"
+         initial={{ opacity: 0, y: -50 }}
+      whileInView={{ opacity:1, y:0}}
+      viewport={{ 
+        once: true,    // Only animates once (doesn't repeat if you scroll up and down)
+        amount: 0.3    // Triggers when 30% of the element is visible
+      }}
+      transition={{ duration: 0.5 }}>
           <div className="space-y-4 text-left ml-10 md:pr-4">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               How it works
@@ -113,11 +142,18 @@ export default function Homepage() {
           <div className="p-6 ml-5 sm:p-8 lg:p-10">
             <Steps />
           </div>
-        </section>
+        </motion.section>
 
-        <section
+        <motion.section
           id="about"
           className="grid grid-cols-1 items-center gap-10 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-sm sm:gap-12 sm:p-8 md:grid-cols-2 md:gap-14 lg:p-10"
+           initial={{ opacity: 0, y: -50 }}
+      whileInView={{ opacity:1, y:0}}
+      viewport={{ 
+        once: true,    // Only animates once (doesn't repeat if you scroll up and down)
+        amount: 0.3    // Triggers when 30% of the element is visible
+      }}
+      transition={{ duration: 0.5 }}
         >
           <div className="relative mx-auto w-full max-w-md md:max-w-none">
             
@@ -144,7 +180,7 @@ export default function Homepage() {
               Get in touch →
             </Link>
           </div>
-        </section>
+        </motion.section>
 
         {/*<section className="space-y-6 text-center">
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">

@@ -1,9 +1,22 @@
+"use client";
 import ContactForm from "../(components)/contactform";
+import { motion } from "framer-motion";
 
 export default function ContactPage() {
   return (
     <>
-      <header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center">
+      <motion.header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center"
+      initial={{ opacity: 0, y: 20 }}
+      
+      // 2. Animate to fully visible and its natural position (y: 0)
+      animate={{ opacity: 1, y: 0 }}
+      
+      // 3. Control the speed and feel
+      transition={{ 
+        duration: 0.5, 
+        delay: 0.2,
+        ease: "easeOut" 
+      }}>
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/75 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
         <div
           className="pointer-events-none absolute -right-24 top-1/4 h-56 w-56 rounded-full bg-[var(--indigo)]/25 blur-3xl"
@@ -24,11 +37,18 @@ export default function ContactPage() {
             Tell us about your goals and we&apos;ll help you choose the right lesson plan.
           </p>
         </div>
-      </header>
+      </motion.header>
 
-      <main className="mx-auto -mt-10 mb-24 w-[92%] max-w-xl sm:-mt-14">
+      <motion.main className="mx-auto -mt-10 mb-24 w-[92%] max-w-xl sm:-mt-14"
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity:1, y:0}}
+      viewport={{ 
+        once: true,    // Only animates once (doesn't repeat if you scroll up and down)
+        amount: 0.3    // Triggers when 30% of the element is visible
+      }}
+      transition={{ duration: 0.6, delay:0.3 }}>
         <ContactForm />
-      </main>
+      </motion.main>
     </>
   );
 }

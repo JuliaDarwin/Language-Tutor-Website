@@ -62,14 +62,14 @@ export default function WhyOurLessons(){
   const currentReasons = reasons[index] || reasons[0];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 2xl:gap-20 justify-center mt-8 w-[70%] sm:w-[90%] 2xl:w-[80%] 2xl:text-2xl mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8 w-full max-w-6xl mx-auto px-4 2xl:text-2xl">
       {currentReasons.map((reason, index) => (
         <div
           key={index}
-          className="flex flex-col p-2 bg-[var(--surface)] rounded-2xl hover:scale-105 transform transition-transform"
+          className="flex flex-col h-[360px] md:h-[400px] lg:h-[380px] p-3 bg-[var(--surface)] rounded-2xl hover:scale-105 transform transition-transform shadow-md"
         >
-          <img src={reason.img} alt="feature" className="w-full h-1/2" />
-          <p className="flex-1 flex items-center justify-center text-center p-3 text-[var(--foreground)">
+          <img src={reason.img} alt="feature" className="w-full h-[70%] object-cover rounded-xl" />
+          <p className="h-[30%] flex items-center justify-center text-center p-2 text-[var(--foreground)] font-medium text-sm md:text-xs lg:text-sm xl:text-base">
             {reason.text}
           </p>
         </div>

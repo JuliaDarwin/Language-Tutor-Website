@@ -14,9 +14,9 @@ export default function Nav() {
     const { isSignedIn, user } = useUser();
 
     return (
-      <header>
+      <header className="sticky top-0 z-30 w-full bg-slate-950/90 backdrop-blur border-b border-slate-800">
        {/*desktop nav*/}
-        <nav className="hidden sm:flex sticky top-0 z-30 bg-slate-950/90 backdrop-blur border-b border-slate-800">
+        <nav className="hidden sm:flex">
           <div className="flex flex-row justify-between items-center h-16 w-[90%] max-w-6xl mx-auto px-4">
             <div className="flex flex-row items-center gap-4">
               <ThemeToggle />
@@ -99,7 +99,7 @@ export default function Nav() {
         </nav>
 
           {/*phone nav*/}
-        <nav className="sm:hidden sticky top-0 z-30 bg-slate-950/90 backdrop-blur border-b border-slate-800">
+        <nav className="sm:hidden">
           <button className="p-3 text-white" onClick={() => setOpen(!open)}>
             {open ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>

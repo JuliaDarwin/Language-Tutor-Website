@@ -36,27 +36,65 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Nav />
              {children}
-            <footer className="bg-black text-white text-center 2xl:text-3xl mt-20 px-10 py-5 w-full">
-              <div className="flex flex-col sm:flex-row gap-5 sm:gap-0 justify-between 2xl:justify-center 2xl:gap-20 items-center mb-4 w-full"> 
-                <div>
-                  <p>Pordon School of Catalan © 2025</p>
+            <footer className="w-full bg-slate-950 text-slate-400 border-t border-slate-900 mt-28">
+              <div className="mx-auto w-[90%] max-w-6xl py-12 sm:py-16 flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
+                {/* Left side: branding & copyright */}
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-white tracking-tight text-lg">
+                    Júlia Language Tutoring
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Júlia Language Tutoring © 2026. All rights reserved.
+                  </p>
                 </div>
-              <div className="flex flex-row xl:items-center gap-15 mb-5 sm:mb-0">
-                <div>
-                  <p className="font-bold pb-3">FOLLOW US</p>
-                  <div className="flex flex-row justify-evenly items-center ">
-                    <a href="https://www.instagram.com/saileach.gan.teorainn/" target="_blank"><FaInstagram className="text-2xl cursor-pointer hover:text-pink-500" /></a>
-                    <FaFacebook className="text-2xl cursor-pointer hover:text-blue-500" />
+                
+                {/* Right side: links */}
+                <div className="flex flex-row items-start gap-12 sm:gap-16">
+                  {/* Follow us section */}
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+                      Follow Us
+                    </h4>
+                    <div className="flex flex-row justify-center md:justify-start items-center gap-4">
+                      <a 
+                        href="https://www.instagram.com/saileach.gan.teorainn/" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-slate-400 hover:text-pink-500 transition-colors duration-200"
+                      >
+                        <FaInstagram className="text-xl" />
+                      </a>
+                      <a 
+                        href="#" 
+                        className="text-slate-400 hover:text-blue-500 transition-colors duration-200"
+                      >
+                        <FaFacebook className="text-xl" />
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* Legal section */}
+                  <div className="space-y-3">
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+                      Legal
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      <a 
+                        href="#" 
+                        className="block text-slate-400 hover:text-white transition-colors duration-200"
+                      >
+                        Privacy Policy
+                      </a>
+                      <a 
+                        href="#" 
+                        className="block text-slate-400 hover:text-white transition-colors duration-200"
+                      >
+                        Terms and Conditions
+                      </a>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <p className="font-bold pb-0 sm:pb-3">LEGAL</p>
-                  <p>Privacy Policy</p>
-                  <p>Terms and Conditions</p>
-                </div>
               </div>
-              </div>
-              
             </footer>
           </ThemeProvider>          
         </body>

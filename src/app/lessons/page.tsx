@@ -1,3 +1,6 @@
+"use client";
+import {motion} from "framer-motion"
+
 import Link from "next/link";
 import {
   FeaturedCardShell,
@@ -41,7 +44,14 @@ const lessonTypes = [
 export default function Lessons() {
   return (
     <>
-      <header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center">
+      <motion.header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: 0.5, 
+        delay: 0.2,
+        ease: "easeOut" 
+      }}>
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/75 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
         <div
           className="pointer-events-none absolute -right-24 top-1/4 h-56 w-56 rounded-full bg-[var(--indigo)]/25 blur-3xl"
@@ -62,10 +72,17 @@ export default function Lessons() {
             Choose the path that fits your goals — from everyday conversation to official exam prep.
           </p>
         </div>
-      </header>
+      </motion.header>
 
       <main className="mx-auto my-24 w-[92%] max-w-6xl">
-        <section className="text-center">
+        <motion.section className="text-center"
+        initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity:1, y:0}}
+      viewport={{ 
+        once: true,    
+        amount: 0.3    
+      }}
+      transition={{ duration: 0.6, delay:0.3 }}>
           <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
             Lesson types
           </p>
@@ -77,10 +94,16 @@ export default function Lessons() {
           </p>
 
           <div className="mt-10 grid grid-cols-1 items-stretch gap-6 md:grid-cols-3 md:items-center md:gap-8">
-            {lessonTypes.map((lesson) => (
+            {lessonTypes.map((lesson, index) => (
               <FeaturedCardShell key={lesson.id} highlighted={lesson.highlighted}>
-                <article
+                <motion.article
                   className={lesson.highlighted ? featuredCardInner : standardCardInner}
+                  initial={{ opacity: 0, y: 15 }}
+                   whileInView={{ opacity:1, y:0}}
+                   viewport={{
+                     once: true
+                   }}
+                   transition={{ duration: 0.5, delay: index * 0.2 }}
                 >
                   {lesson.highlighted && (
                     <span className={popularBadgeClass}>Most popular</span>
@@ -124,13 +147,20 @@ export default function Lessons() {
                   >
                     Learn more
                   </Link>
-                </article>
+                </motion.article>
               </FeaturedCardShell>
             ))}
           </div>
-        </section>
+        </motion.section>
 
-        <section className="relative mt-20 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] dark:bg-[var(--foreground-muted)] px-6 py-12 text-center shadow-md sm:mt-24 sm:px-12 sm:py-14">
+        <motion.section className="relative mt-20 overflow-hidden rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] dark:bg-[var(--foreground-muted)] px-6 py-12 text-center shadow-md sm:mt-24 sm:px-12 sm:py-14"
+        initial={{ opacity: 0, y: 15 }}
+         whileInView={{ opacity:1, y:0}}
+         viewport={{ 
+           once: true,    
+           amount: 0.3    
+         }}
+         transition={{ duration: 0.6 }}>
           <div
             className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[var(--indigo-soft)] via-transparent to-[var(--primary-soft)]"
             aria-hidden
@@ -151,7 +181,7 @@ export default function Lessons() {
               </Link>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
     </>
   );

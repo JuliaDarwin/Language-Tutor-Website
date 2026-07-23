@@ -17,14 +17,7 @@ const btnSecondary =
 
 export default function ContactForm() {
   const [step, setStep] = useState(1);
-
-  function nextStep() {
-    if (step < 3) setStep(step + 1);
-  }
-
-  function prevStep() {
-    if (step > 1) setStep(step - 1);
-  }
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const [formData, setFormData] = useState({
     name: "",
@@ -36,6 +29,17 @@ export default function ContactForm() {
   const [msg, setMsg] = useState("");
   const [showForm, setShowForm] = useState(true);
 
+  function nextStep() {
+    if(validateStep(step)){
+      if (step < 3) setStep(step + 1);
+    }
+    
+  }
+
+  function prevStep() {
+    if (step > 1) setStep(step - 1);
+  }
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -45,6 +49,14 @@ export default function ContactForm() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    if (errors[name]) {
+    setErrors((prev) => {
+      const updated = { ...prev };
+      delete updated[name];
+      return updated;
+    });
+  }
   };
 
   const clientAction = async (fd: FormData) => {
@@ -57,11 +69,42 @@ export default function ContactForm() {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if(!validateStep(3)){
+      return; 
+    }
     setMsg(
       `Name: ${formData.name}\nEmail: ${formData.email}\nWeekly Lessons: ${formData.weeklyLessons}\nLesson Type: ${formData.lessonType}\nMessage: ${formData.message}`
     );
     setShowForm(false);
   };
+
+  const validateStep = (currentStep: number) => {
+    const newErrors: { [key: string]: string } = {};
+
+    if(currentStep === 1){
+      if(!formData.weeklyLessons){
+        newErrors.weeklyLessons = "Please enter the number of weekly lessons."
+      } 
+      if (!formData.lessonType) {
+      newErrors.lessonType = "Please select a lesson type.";
+      }
+    }
+    if (currentStep === 2){
+      if(!formData.name.trim()){
+        newErrors.name = "Name is required.";
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!formData.email) {
+      newErrors.email = "Email is required.";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // returns true if valid
+
+  }
 
   return (
     <div className="rounded-3xl my-24 border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-md sm:p-10">
@@ -85,17 +128,23 @@ export default function ContactForm() {
                   <label htmlFor="weeklyLessons" className={labelClass}>
                     Number of weekly lessons
                   </label>
-                  <input
+                  <select
                     className={inputClass}
-                    type="number"
-                    min="1"
-                    max="4"
+                    
                     id="weeklyLessons"
                     name="weeklyLessons"
                     value={formData.weeklyLessons}
-                    onChange={handleChange}
-                    required
-                  />
+                    onChange={handleChange}>
+                      <option value="">select an option</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="intensive">Intensive- 5 or more</option>
+                  </select>
+                  {errors.weeklyLessons && (
+    <span className="text-xs text-red-500 mt-1 block">{errors.weeklyLessons}</span>
+  )}
                 </div>
                 <div>
                   <label htmlFor="lessonType" className={labelClass}>
@@ -107,7 +156,7 @@ export default function ContactForm() {
                     name="lessonType"
                     value={formData.lessonType}
                     onChange={handleChange}
-                    required
+                    
                   >
                     <option value="">Select an option</option>
                     <option value="conversational">Conversational</option>
@@ -115,6 +164,9 @@ export default function ContactForm() {
                     <option value="exams">Exams</option>
                     <option value="other">Other</option>
                   </select>
+                  {errors.lessonType && (
+    <span className="text-xs text-red-500 mt-1 block">{errors.lessonType}</span>
+  )}
                 </div>
                 <div className="flex justify-end pt-2">
                   <button type="button" onClick={nextStep} className={btnPrimary}>
@@ -138,8 +190,11 @@ export default function ContactForm() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    required
+                    
                   />
+                  {errors.name && (
+    <span className="text-xs text-red-500 mt-1 block">{errors.name}</span>
+  )}
                 </div>
                 <div>
                   <label htmlFor="email" className={labelClass}>
@@ -153,8 +208,11 @@ export default function ContactForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    required
+                    
                   />
+                  {errors.email && (
+    <span className="text-xs text-red-500 mt-1 block">{errors.email}</span>
+  )}
                 </div>
                 <div className="flex justify-between pt-2">
                   <button type="button" className={btnSecondary} onClick={prevStep}>
