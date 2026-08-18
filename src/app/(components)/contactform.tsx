@@ -3,9 +3,10 @@
 import { useState } from "react";
 import ProgressBar from "./progressbar";
 import { sendEmail } from "../contact/actions";
+import { FiChevronDown } from "react-icons/fi";
 
 const inputClass =
-  "w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--background)] p-3 text-[var(--foreground)] shadow-sm transition placeholder:text-[var(--foreground-muted)] focus:border-[var(--indigo)] focus:outline-none focus:ring-2 focus:ring-[var(--indigo)]/20";
+  "w-full appearance-none rounded-xl border border-[var(--border-subtle)] bg-[var(--background)] px-4 py-3 pr-10 text-[var(--foreground)] shadow-sm transition placeholder:text-[var(--foreground-muted)] focus:border-[var(--indigo)] focus:outline-none focus:ring-2 focus:ring-[var(--indigo)]/20 cursor-pointer";
 
 const labelClass = "mb-2 block text-sm font-medium text-[var(--foreground)]";
 
@@ -107,13 +108,13 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="rounded-3xl my-24 border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-md sm:p-10">
-      <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+    <div className="rounded-3xl my-24 border border-[var(--border-subtle)] bg-[var(--card-background)] p-6 shadow-md sm:p-10">
+      <h2>
         Contact form
-      </p>
-      <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-        Tell us about your lessons
       </h2>
+      <h3>
+        Tell us about your lessons
+      </h3>
       <p className="mt-2 text-sm leading-relaxed text-[var(--foreground-muted)]">
         Fill in a few details and we&apos;ll get back to you within 3 working days.
       </p>
@@ -128,42 +129,47 @@ export default function ContactForm() {
                   <label htmlFor="weeklyLessons" className={labelClass}>
                     Number of weekly lessons
                   </label>
-                  <select
-                    className={inputClass}
-                    
-                    id="weeklyLessons"
-                    name="weeklyLessons"
-                    value={formData.weeklyLessons}
-                    onChange={handleChange}>
+                  <div className="relative">
+                    <select
+                      className={inputClass}
+                      id="weeklyLessons"
+                      name="weeklyLessons"
+                      value={formData.weeklyLessons}
+                      onChange={handleChange}
+                    >
                       <option value="">select an option</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
                       <option value="intensive">Intensive- 5 or more</option>
-                  </select>
+                    </select>
+                    <FiChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-lg text-[var(--foreground-muted)]" />
+                  </div>
                   {errors.weeklyLessons && (
-    <span className="text-xs text-red-500 mt-1 block">{errors.weeklyLessons}</span>
-  )}
+                    <span className="text-xs text-red-500 mt-1 block">{errors.weeklyLessons}</span>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="lessonType" className={labelClass}>
                     Type of lesson
                   </label>
-                  <select
-                    className={inputClass}
-                    id="lessonType"
-                    name="lessonType"
-                    value={formData.lessonType}
-                    onChange={handleChange}
-                    
-                  >
-                    <option value="">Select an option</option>
-                    <option value="conversational">Conversational</option>
-                    <option value="general">General</option>
-                    <option value="exams">Exams</option>
-                    <option value="other">Other</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      className={inputClass}
+                      id="lessonType"
+                      name="lessonType"
+                      value={formData.lessonType}
+                      onChange={handleChange}
+                    >
+                      <option value="">Select an option</option>
+                      <option value="conversational">Conversational</option>
+                      <option value="general">General</option>
+                      <option value="exams">Exams</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <FiChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-lg text-[var(--foreground-muted)]" />
+                  </div>
                   {errors.lessonType && (
     <span className="text-xs text-red-500 mt-1 block">{errors.lessonType}</span>
   )}
@@ -268,14 +274,14 @@ export default function ContactForm() {
           </form>
         </div>
       ) : (
-        <div className="mt-8 space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--indigo-soft)] p-6 text-center sm:p-8">
+        <div className="mt-8 space-y-4 rounded-2xl border border-[var(--border-subtle)] bg-[var(--indigo-soft)] p-6 text-center sm:p-8 flex flex-col justify-center items-center w-[50%] mx-auto">
           <p className="text-lg font-semibold tracking-tight text-[var(--foreground)]">
             Your form was successfully submitted!
           </p>
           <p className="text-sm text-[var(--foreground-muted)]">
             We will get back to you within 3 working days.
           </p>
-          <p className="whitespace-pre-line rounded-xl bg-[var(--surface)] p-4 text-left text-sm text-[var(--foreground-muted)]">
+          <p className="whitespace-pre-line rounded-xl p-4 text-left text-sm text-[var(--foreground-muted)]">
             {msg}
           </p>
         </div>

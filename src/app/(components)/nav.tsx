@@ -166,7 +166,7 @@ export default function Nav() {
                     <li>
                       <Link
                         href="/lessons"
-                        className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
+                        className="btn-primary"
                       >
                         Book a lesson
                       </Link>

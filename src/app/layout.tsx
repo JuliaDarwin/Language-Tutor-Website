@@ -36,7 +36,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Nav />
              {children}
-            <footer className="w-full bg-slate-950 text-slate-400 border-t border-slate-900 mt-28">
+            <footer className="w-full bg-slate-950 text-slate-400 border-t border-slate-900">
               <div className="mx-auto w-[90%] max-w-6xl py-12 sm:py-16 flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
                 {/* Left side: branding & copyright */}
                 <div className="space-y-3">

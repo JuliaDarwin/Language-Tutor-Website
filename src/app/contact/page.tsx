@@ -39,7 +39,7 @@ export default function ContactPage() {
         </div>
       </motion.header>
 
-      <motion.main className="mx-auto -mt-10 mb-24 w-[92%] max-w-xl sm:-mt-14"
+      <motion.main 
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
@@ -47,7 +47,13 @@ export default function ContactPage() {
         amount: 0.3    // Triggers when 30% of the element is visible
       }}
       transition={{ duration: 0.6, delay:0.3 }}>
-        <ContactForm />
+        <section className="section-beige">
+          <div className="mx-auto w-full px-5 sm:w-[70%] sm:-mt-14 py-15">
+            <ContactForm />
+          </div>
+          
+        </section>
+        
       </motion.main>
     </>
   );
