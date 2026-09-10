@@ -40,9 +40,9 @@ export default function RootLayout({
               <div className="mx-auto w-[90%] max-w-6xl py-12 sm:py-16 flex flex-col md:flex-row justify-between items-center md:items-start gap-8 md:gap-12 text-center md:text-left">
                 {/* Left side: branding & copyright */}
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-white tracking-tight text-lg">
+                  <p className="font-semibold text-white tracking-tight text-lg">
                     Júlia Language Tutoring
-                  </h3>
+                  </p>
                   <p className="text-xs text-slate-500">
                     Júlia Language Tutoring © 2026. All rights reserved.
                   </p>

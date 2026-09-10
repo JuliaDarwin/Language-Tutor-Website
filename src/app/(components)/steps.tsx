@@ -24,9 +24,9 @@ export default function Steps() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="relative flex flex-col items-center text-center border b-2 border-[var(--border-subtle)] bg-[var(--indigo-soft)] py-8 px-5 rounded-full w-full"
+              className="relative flex flex-col items-center text-center border b-2 border-[var(--border-subtle)] bg-[var(--indigo-soft)] py-6 px-5 w-full rounded-sm transition-transform duration-300 ease-in-out hover:translate-y-[-6px] hover:scale-110"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--indigo-light)] text-sm font-bold text-[var(--indigo)] dark:bg-[var(--indigo)] dark:text-white shadow-sm">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--indigo-light)] text-sm font-bold text-[var(--indigo-muted)] dark:bg-[var(--indigo)] dark:text-white shadow-sm">
                 {index + 1}
               </span>
               <div className="mt-3 flex flex-col items-center text-center w-full"> 
@@ -53,8 +53,8 @@ export default function Steps() {
                       ease: "easeOut",
                     }}
                   >
-                    <span className="w-5 h-[2px] bg-current rounded-full" />
-                    <FiArrowRight className="text-2xl -ml-1 mr-5" />
+                    {/* <span className="w-5 h-[2px] bg-current rounded-full" /> */}
+                    {/* <FiArrowRight className="text-2xl -ml-1 mr-5" /> */}
                   </motion.div>
                 </div>
               )}

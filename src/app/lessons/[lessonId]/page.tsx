@@ -111,12 +111,12 @@ export default async function LessonPage({
           </div>
           
           <div className="space-y-6 text-left order-1 md:order-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               Overview
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Lesson Details
             </h2>
+            <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              Lesson Details
+            </h3>
             <p className="text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base">
               {lesson.details}
             </p>

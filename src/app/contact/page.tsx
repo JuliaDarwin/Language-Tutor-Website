@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function ContactPage() {
   return (
     <>
-      <motion.header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/homepagepic.webp')] bg-cover bg-center"
+      <motion.header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/bcn.jpg')] bg-cover bg-center"
       initial={{ opacity: 0, y: 20 }}
       
       // 2. Animate to fully visible and its natural position (y: 0)

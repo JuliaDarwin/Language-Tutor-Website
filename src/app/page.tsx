@@ -20,24 +20,28 @@ import {
 const benefits = [
   {
     title: "Conversation",
+    image:"homepage.jpg",
     description:
       "Improve your speaking skills and gain confidence in real life situations.",
     icon: MdOutlineForum,
   },
   {
     title: "Grammar & Vocabulary",
+    image:"vocabulary.jpg",
     description:
       "Build a strong foundation and expand your vocabulary naturally",
     icon: MdOutlineMenuBook,
   },
   {
     title: "Customized Lessons",
+    image:"customized-lessons.jpg",
     description:
       "Every lesson is adapted to your goals, level and learning style.",
     icon: MdTune,
   },
   {
     title: "Exam Preparation",
+    image:"exam.jpg",
     description:
       "Prepare for official exams like DELE/Generalitat with personalized practice and feedback",
     icon: MdSchool,
@@ -181,7 +185,7 @@ export default function Homepage() {
   return (
     <>
     {/* //hero */}
-      <motion.header className="relative min-h-[60vh] flex items-end overflow-hidden px-8 pt-6 pb-0 sm:px-12 sm:pt-6 sm:pb-0 lg:px-16 lg:pt-12 lg:pb-0 bg-[var(--background-alt)] bg-cover bg-center"
+      <motion.header className="relative min-h-[60vh] flex items-stretch overflow-hidden bg-[var(--background-alt)] bg-cover"
             // 1. Start invisible and pushed up by 50 pixels
  initial={{ opacity: 0, y: -50 }}
       
@@ -195,16 +199,16 @@ export default function Homepage() {
         ease: "easeOut" 
       }}>
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl flex flex-col-reverse md:flex-row items-end justify-between gap-3 lg:gap-20">
-          <div className="max-w-2xl text-left text-[var(--foreground)] flex-1 pb-16 md:pb-24 pt-8">
-            <p className="inline-flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--indigo-soft)] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--indigo)] backdrop-blur-sm">
+        <div className="relative z-10 mx-auto w-full grid grid-cols-2">
+          <div className="max-w-2xl text-left text-[var(--foreground)] flex-1 pb-16 pt-15 pl-20">
+            {/* <p className="inline-flex items-center gap-2 rounded-full  px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary)] backdrop-blur-sm">
               Learn Catalan/Spanish with confidence
-            </p>
-            <h1 className="mt-6 text-left text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl 2xl:text-7xl">
+            </p> */}
+            <h1 className="mt-6 text-left text-4xl leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl 2xl:text-7xl">
               Learn a language.
-              <span className="block italic text-[var(--primary)]">Open new doors.</span>
+              <span className="block text-[var(--primary)]">Open new doors.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--foreground-muted)] sm:text-lg lg:text-xl">
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--foreground-muted)]">
               Structured, friendly online lessons to take you from beginner to fluent,
               taught by an experienced native tutor from Barcelona.
             </p>
@@ -221,32 +225,48 @@ export default function Homepage() {
                 Talk to me
               </Link>
             </div>
-            <div className="grid grid-cols-3 gap-8 pt-12">
-              <div className="flex flex-col items-center gap-1 text-center">
-                <MdPerson className="text-4xl text-[var(--primary)]" />
-                <p className="font-semibold text-md">1-on-1 LESSONS</p>
-                <p className="text-xs text-[var(--foreground-muted)]">100% personalized</p>
+            
+            {/* Minimal Horizontal Stats Bar */}
+            <div className="flex flex-wrap items-center gap-8 pt-12 mt-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--indigo-soft)] text-[var(--indigo)]">
+                  <MdPerson className="text-xl" />
+                </div>
+                <div className="text-left">
+                  <p className="font-bold  text-[var(--foreground)]">1-on-1</p>
+                  <p className="text-xs text-[var(--foreground-muted)]">Personalized</p>
+                </div>
               </div>
 
-              <div className="flex flex-col items-center text-center gap-1">
-                <MdSchedule className="text-4xl text-[var(--primary)]" />
-                <p className="font-semibold text-md">Flexible schedule</p>
-                <p className="text-xs text-[var(--foreground-muted)]">Learn when it fits you</p>
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--indigo-soft)] text-[var(--indigo)]">
+                  <MdSchedule className="text-xl" />
+                </div>
+                <div className="text-left">
+                  <p className="font-bold text-[var(--foreground)]">Flexible</p>
+                  <p className="text-xs text-[var(--foreground-muted)]">On your time</p>
+                </div>
               </div>
-
-              <div className="flex flex-col items-center text-center gap-1">
-                <MdLaptop className="text-4xl text-[var(--primary)]" />
-                <p className="font-semibold text-md">Online anywhere</p>
-                <p className="text-xs text-[var(--foreground-muted)]">Lessons from the comfort of your home</p>
+              
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--indigo-soft)] text-[var(--indigo)]">
+                  <MdLaptop className="text-xl" />
+                </div>
+                <div className="text-left">
+                  <p className="font-bold text-[var(--foreground)]">Online</p>
+                  <p className="text-xs text-[var(--foreground-muted)]">Anywhere</p>
+                </div>
               </div>
             </div>
           </div>
-          <div className="w-full mx-auto max-w-[50%] sm:max-w-[420px] md:max-w-none md:w-[450px] md:h-[500px] lg:w-[580px] lg:h-[600px] aspect-[4/3]  md:aspect-auto shrink-0 overflow-hidden rounded-t-full shadow-sm bg-[var(--background-alt)]">
+          <div className="relative w-full h-full">
             <img 
-              src="/homepage.jpg" 
+              src="/homepage2.jpg" 
               alt="Júlia - Catalan and Spanish Tutor" 
-              className="w-full h-full object-cover object-top" 
+              className="w-full h-full object-cover object-top " 
             />
+            {/* Faded left border effect */}
+            <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-[var(--background-alt)] to-transparent pointer-events-none"></div>
           </div>
         </div>
       </motion.header>
@@ -273,10 +293,10 @@ export default function Homepage() {
               return (
                 <article
                   key={item.title}
-                  className="group relative flex flex-col items-center text-center overflow-hidden rounded-2xl  p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-lg border-t-2 border-[var(--amber)] hover:border-[var(--primary)]"
+                  className="group relative flex flex-col items-center text-center bg-[var(--card-background)] overflow-hidden rounded-2xl  p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-lg border-t-2 border-[var(--amber)] hover:border-[var(--primary)]"
                 >
                   <div className="absolute inset-x-0 top-0 h-1bg-gradient-to-r from-[var(--indigo)] to-[var(--amber)] opacity-0 transition group-hover:opacity-100" />
-                  <img src="/conversational.jpg"></img>
+                  <img src={item.image}></img>
                   {/* <span className="inline-flex p-3 h-20 w-20 items-center justify-center rounded-4xl bg-[var(--indigo-muted)] text-5xl text-[var(--indigo)]">
                     <IconComponent />
                   </span> */}
@@ -347,7 +367,7 @@ export default function Homepage() {
               you. We handle materials, planning and progress tracking.
             </p>
           </div>
-          <div className="p-6 sm:p-8 lg:p-10">
+          <div>
             <Steps />
           </div>
         </motion.section>

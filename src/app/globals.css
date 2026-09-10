@@ -3,35 +3,78 @@
 
 
 :root {
-  --background-main: #fffcf8;
-  /* A very bright, warm off-white */
+  /* --background-main: #fffcf8;
   --background-alt: #f7f3eb;
-  /* A soft, inviting cream/beige */
-  --card-background: #ece8e0;
+  --card-background: #fffcf8; */
+  --background-main: #f4eee3;
+  /* A slightly deeper, cozier cream */
+  --background-alt: #e9e3d7;
+  /* Even deeper for sidebars/panels */
+  --card-background: #f8f1e7;
   --foreground: #171717;
-  /* warm — labels, CTAs */
+  --foreground-muted: #525252;
   --amber: #fbbf24;
   --amber-light: #fde68a;
   --amber-muted: #fef3c7;
-  --primary: #d97706;
-  --primary-light: #f59e0b;
-  --primary-soft: color-mix(in srgb, var(--primary) 12%, transparent);
-  /* cool — accents, hovers, structure */
-  --indigo-strong: #3f36e6;
-  --indigo: #4f46e5;
-  --indigo-light: #a5b4fc;
-  --indigo-muted: #e0e7ff;
+  --primary: #9a2201;
+  --primary-light: #c22f04;
+  --primary-soft: #efa18f;
+  --primary-muted: #e0c9c4;
+  --indigo-strong: #d17819;
+  --indigo: #b66814;
+  --indigo-light: #d89752;
+  --indigo-muted: #faedd9;
   --indigo-soft: color-mix(in srgb, var(--indigo) 10%, transparent);
   --accent-soft: color-mix(in srgb, var(--indigo-light) 22%, transparent);
-  --foreground-muted: #525252;
-  --surface: #e8e8ec;
+
+  /* --surface: #e8e8ec; */
+  --surface: #e7e5e4;
+
   --border-subtle: color-mix(in srgb, var(--foreground) 8%, transparent);
-  /* legacy aliases */
   --blue: var(--indigo);
   --lightblue: var(--indigo-light);
 }
 
 .dark {
+  /* 1. Backgrounds & Surfaces (Warm dark grays) */
+  --background-main: #232120;
+  --background-alt: #191817;
+  --card-background: #2c2928;
+  --surface: #363331;
+
+  /* 2. Foregrounds (Warm off-whites) */
+  --foreground: #f5f2eb;
+  --foreground-muted: #a8a39d;
+
+  /* 3. Amber (Kept identical for vibrancy) */
+  --amber: #fbbf24;
+  --amber-light: #fde68a;
+  --amber-muted: color-mix(in srgb, var(--amber) 15%, transparent);
+
+  /* 4. Primary (Burnt Orange - brightened for dark mode contrast) */
+  --primary: #f06c43;
+  --primary-light: #ffa080;
+  --primary-soft: color-mix(in srgb, var(--primary) 20%, transparent);
+  --primary-muted: color-mix(in srgb, var(--primary) 12%, transparent);
+
+  /* 5. "Indigo" / Ochre (Maintained earthy hue, optimized for dark mode) */
+  --indigo-strong: #e8a864;
+  --indigo: #d89752;
+  /* Using light mode's 'light' as the dark mode base */
+  --indigo-light: #f5cca3;
+  --indigo-muted: color-mix(in srgb, var(--indigo) 18%, transparent);
+  --indigo-soft: color-mix(in srgb, var(--indigo) 14%, transparent);
+
+  /* 6. Accents & Borders */
+  --accent-soft: color-mix(in srgb, var(--indigo-light) 12%, transparent);
+  --border-subtle: color-mix(in srgb, var(--foreground) 14%, transparent);
+
+  /* 7. Semantic Aliases */
+  --blue: var(--indigo);
+  --lightblue: var(--indigo-light);
+}
+
+/* .dark {
   --background-main: #2a2929;
   --background-alt: #1c1b1b;
   --foreground: #f5f5f5;
@@ -48,7 +91,7 @@
   --accent-soft: color-mix(in srgb, var(--indigo-light) 12%, transparent);
   --blue: var(--indigo);
   --lightblue: var(--indigo-light);
-}
+} */
 
 * {
   box-sizing: border-box;
