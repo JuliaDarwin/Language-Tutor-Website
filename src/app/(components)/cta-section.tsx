@@ -5,7 +5,7 @@ import Link from "next/link";
 export const CtaSection = () => {
     return(
         <>
-         <section className="relative overflow-hidden border-t border-[var(--border-subtle)] bg-[url('/gaudi.jpg')] bg-cover bg-center px-6 py-16 text-center sm:px-12 sm:py-20 w-full text-white">
+         <section className="relative overflow-hidden bg-[url('/gaudi.jpg')] bg-cover bg-center px-6 py-16 text-center sm:px-12 sm:py-20 w-full text-white">
           <div className="absolute inset-0 bg-slate-900/75 dark:bg-slate-950/85"></div>
           <div className="relative z-10">
             <p className="text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -16,7 +16,7 @@ export const CtaSection = () => {
               you.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Link href="/lessons">
+              <Link href="/lessons#packages">
                 <button className="btn-primary">
                   Book your first lesson
                 </button>

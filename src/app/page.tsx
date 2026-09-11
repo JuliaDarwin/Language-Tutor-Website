@@ -186,21 +186,16 @@ export default function Homepage() {
     <>
     {/* //hero */}
       <motion.header className="relative min-h-[60vh] flex items-stretch overflow-hidden bg-[var(--background-alt)] bg-cover"
-            // 1. Start invisible and pushed up by 50 pixels
  initial={{ opacity: 0, y: -50 }}
-      
-      // 2. Animate to fully visible and its natural position (y: 0)
-      animate={{ opacity: 1, y: 0 }}
-      
-      // 3. Control the speed and feel
-      transition={{ 
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
         duration: 0.8, 
         delay: 0.2,
         ease: "easeOut" 
       }}>
 
-        <div className="relative z-10 mx-auto w-full grid grid-cols-2">
-          <div className="max-w-2xl text-left text-[var(--foreground)] flex-1 pb-16 pt-15 pl-20">
+        <div className="relative z-10 mx-auto w-full grid grid-cols-1 sm:grid-cols-2">
+          <div className="max-w-2xl text-left text-[var(--foreground)] flex-1 pb-16 pt-15 px-4 my-auto mx-auto">
             {/* <p className="inline-flex items-center gap-2 rounded-full  px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--primary)] backdrop-blur-sm">
               Learn Catalan/Spanish with confidence
             </p> */}
@@ -266,14 +261,14 @@ export default function Homepage() {
               className="w-full h-full object-cover object-top " 
             />
             {/* Faded left border effect */}
-            <div className="absolute inset-y-0 left-0 w-4 bg-gradient-to-r from-[var(--background-alt)] to-transparent pointer-events-none"></div>
+            <div className="absolute inset-y-0 left-0 w-0 sm:w-4 bg-gradient-to-r from-[var(--background-alt)] to-transparent pointer-events-none"></div>
           </div>
         </div>
       </motion.header>
 
       {/* WHY LEARN WITH ME */}
       <main className="bg-[var(--background-main)]" >
-        <motion.section className="text-center w-[92%] max-w-6xl mx-auto my-20 "
+        <motion.section className="text-left sm:text-center w-[92%] max-w-6xl mx-auto my-20 px-4 sm:px-0"
          initial={{ opacity: 0, y: -50 }}
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
@@ -287,7 +282,7 @@ export default function Homepage() {
           <h3 className="mx-auto mt-3 max-w-3xl text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
             A clear path from first words to fluent conversation
           </h3>
-          <div className="mt-10 grid grid-cols-1 gap-5 text-left sm:grid-cols-4 sm:gap-6">
+          <div className="mt-10 grid grid-cols-1 gap-5 text-left sm:grid-cols-2  lg:grid-cols-4 sm:gap-6">
             {benefits.map((item) => {
               const IconComponent = item.icon;
               return (
@@ -296,7 +291,7 @@ export default function Homepage() {
                   className="group relative flex flex-col items-center text-center bg-[var(--card-background)] overflow-hidden rounded-2xl  p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-lg border-t-2 border-[var(--amber)] hover:border-[var(--primary)]"
                 >
                   <div className="absolute inset-x-0 top-0 h-1bg-gradient-to-r from-[var(--indigo)] to-[var(--amber)] opacity-0 transition group-hover:opacity-100" />
-                  <img src={item.image}></img>
+                  <img src={item.image} className="aspect-16/11"></img>
                   {/* <span className="inline-flex p-3 h-20 w-20 items-center justify-center rounded-4xl bg-[var(--indigo-muted)] text-5xl text-[var(--indigo)]">
                     <IconComponent />
                   </span> */}
@@ -321,7 +316,7 @@ export default function Homepage() {
           }}
           transition={{ duration: 0.5 }}
         >
-          <div className="grid grid-cols-1 sm:grid-cols-3 items-center text-center gap-8 w-full text-[var(--surface)]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 items-center text-center gap-8 w-full text-[var(--surface)]">
             <div className="flex flex-row items-start justify-center gap-4">
               <MdOutlineForum className="text-6xl" />
               <div className="flex flex-col items-center justify-center">
@@ -355,14 +350,14 @@ export default function Homepage() {
         amount: 0.3    // Triggers when 30% of the element is visible
       }}
       transition={{ duration: 0.5 }}>
-          <div className="space-y-4 text-center mx-auto ">
+          <div className="space-y-4 text-justify sm:text-center mx-auto p-4 sm:p-0">
             <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               How it works
             </h2>
             <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
               Simple steps to start learning
             </h3>
-            <p className="text-sm leading-relaxed text-[var(--foreground-muted)] mx-auto w-[75%] sm:text-base lg:text-lg">
+            <p className="text-sm text-[var(--foreground-muted)] mx-auto sm:w-[75%] sm:text-base lg:text-lg">
               Choose the type of lessons that matches your goals, select a plan, and schedule a time that works for
               you. We handle materials, planning and progress tracking.
             </p>
@@ -374,7 +369,8 @@ export default function Homepage() {
 
       {/* ABOUT ME */}
         <motion.section
-          className="section-white grid grid-cols-1 items-center justify-center gap-6 p-6 sm:p-8 md:grid-cols-3 md:gap-10 mx-auto w-[90%] lg:p-10"
+        id="about"
+          className="section-white grid grid-cols-1 items-center justify-center gap-6 p-6 sm:p-8 md:grid-cols-3 md:gap-10 mx-auto lg:w-[90%] lg:p-10"
            initial={{ opacity: 0, y: -50 }}
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
@@ -424,7 +420,7 @@ export default function Homepage() {
 
         {/* REVIEWS */}
 
-        <motion.section className="section-beige p-15 space-y-4 text-center mx-auto md:pr-4"
+        <motion.section className="section-beige p-6 sm:p-15 space-y-4 text-center mx-auto"
         initial={{ opacity: 0, y: -50 }}
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
@@ -454,7 +450,7 @@ export default function Homepage() {
             <a href="https://preply.com/es/profesor/966879" target="_blank" className="mx-auto"><button className="btn-primary mt-5">See more reviews</button></a>
         </motion.section>
 
-        <section className="section-white p-15 space-y-4 text-left mx-auto md:pr-4 flex flex-col items-center justify-center w-[90%] sm:w-[70%]">
+        <section className="section-white px-4 py-6 sm:p-15 space-y-4 text-left mx-auto md:pr-4 flex flex-col items-center justify-center w-[90%] lg:w-[70%]">
           
             <h2>Frequently Asked Questions</h2>
             <h3>Common Questions About Lessons</h3>

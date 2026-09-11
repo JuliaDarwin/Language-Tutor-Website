@@ -60,20 +60,21 @@ export default function ContactForm() {
   }
   };
 
-  const clientAction = async (fd: FormData) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if(!validateStep(3)){
+      return; 
+    }
+    
+    const fd = new FormData();
     fd.set("name", formData.name);
     fd.set("email", formData.email);
     fd.set("weeklyLessons", formData.weeklyLessons);
     fd.set("lessonType", formData.lessonType);
     fd.set("message", formData.message);
+    
     await sendEmail(fd);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if(!validateStep(3)){
-      return; 
-    }
+    
     setMsg(
       `Name: ${formData.name}\nEmail: ${formData.email}\nWeekly Lessons: ${formData.weeklyLessons}\nLesson Type: ${formData.lessonType}\nMessage: ${formData.message}`
     );
@@ -122,7 +123,7 @@ export default function ContactForm() {
       {showForm ? (
         <div className="mt-8">
           <ProgressBar step={step} />
-          <form onSubmit={handleSubmit} action={clientAction} className="space-y-1">
+          <form onSubmit={handleSubmit} className="space-y-1">
             {step === 1 && (
               <fieldset className="space-y-5">
                 <div>

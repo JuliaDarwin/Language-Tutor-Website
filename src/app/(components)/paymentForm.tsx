@@ -35,7 +35,7 @@ export default function PaymentForm({ initialLessons }: { initialLessons: number
           type="number" 
           min="1"
           max="15"
-          value={lessons}
+          // value={lessons}
           onChange={(e) => {
             // Strip out any non-digit characters (prevents pasted decimals/text)
             const onlyNums = e.target.value.replace(/\D/g, "");
@@ -49,7 +49,7 @@ export default function PaymentForm({ initialLessons }: { initialLessons: number
         setLessons(num);
       }
     }
-  }}          className="w-full p-4 rounded-xl border-2 border-gray-200 focus:border-[var(--blue)] outline-none transition-colors"
+  }}          className="w-full p-4 rounded-xl border-2 border-gray-200 focus:border-[var(--blue)] outline-none text-black"
           placeholder="e.g. 7"
         />
       </div>

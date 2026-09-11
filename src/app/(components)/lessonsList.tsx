@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ClientDate } from "./clientDate";
 
 const cardClass =
-  "mx-auto w-full max-w-2xl rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-md sm:p-8";
+  "mx-auto w-full rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-background)] p-6 shadow-md sm:p-8";
 
 const sectionTitleClass =
   "mb-6 pb-6 text-xl text-center font-semibold tracking-tight text-black dark:text-white";
@@ -45,7 +45,7 @@ export default function LessonsList({
           {futureLessons.map((booking, idx) => (
             <li
               key={idx}
-              className="flex flex-col gap-4 border-b border-[var(--border-subtle)] pb-5 last:border-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col items-center gap-4 border-b border-[var(--border-subtle)] pb-5  sm:flex-row sm:justify-between"
             >
               <ClientDate
                 dateString={booking.date}

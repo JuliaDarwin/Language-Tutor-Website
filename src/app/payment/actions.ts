@@ -1,48 +1,73 @@
 "use server";
-/* el que fa aquesta funcio es primer mirar si l'usuari existeix, despres agafar dades de lusuari a traves de clientclerk, 
-dp recull el num de classes que la persona vol comprar a traves del form, valida que sigui un num correcte, llavors mria el num de unschedyled lessns a traves de publicmetadata, 
-afegeix el num de classes q la persona vol comprar als current unscheduled, i demana que faci un refresh del dashboard pq s0actualitzi i redirigeix alla dp de la compra*/
-import { auth, clerkClient } from "@clerk/nextjs/server";
-import { revalidatePath } from "next/cache";
+
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-//form data is an object reresenting the data gathered in a form, in this case is gatherig the info of the form in payment
+import Stripe from "stripe";
+
+// Initialize Stripe with your secret key
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
 export async function purchaseLessons(formData: FormData) {
     const { userId } = await auth();
-    //1- check if user exists
+    
+    // 1- check if user exists
     if (!userId) {
         throw new Error("Not authorized");
     }
-    //2- recollir info del user. auth nomes et dona el id del user, pero l'obj de clerkclient et dona mlta mes info: nom, email ,metadata..per aixo treu "user" d'alla
-    const client = await clerkClient();
-    const user = await client.users.getUser(userId);
-    //3- recollir el input del form de /payment com un string i ho passem a num
+
+    // 2- get the input from the form
     const lessonsToBuyStr = formData.get("lessons") as string;
     const lessonsToBuy = parseInt(lessonsToBuyStr, 10);
-    //4- validar q el num sigui normal
+
+    // 3- validate the number
     if (isNaN(lessonsToBuy) || lessonsToBuy <= 0 || !Number.isInteger(lessonsToBuy)) {
         throw new Error("Invalid lessons amount");
     }
 
-    /* 5- Read current unscheduled lessons. public metadata is a place where you can store custom data about the user. aqui
-    agafem el num de unscheduled lessons si ja existia, i sino li diem que es undefined.*/
+    // 4- Calculate price in cents ($36 for 1-4 lessons, $35 for 5+ lessons)
+    const unitPrice = lessonsToBuy >= 5 ? 3500 : 3600;
 
-    const currentUnscheduledValues = user.publicMetadata.unscheduled_lessons as number | undefined;
-    const currentCount = currentUnscheduledValues ?? 0; //nullish coalescing operator, if the value is undefined it gives 0 as the value
+    let sessionUrl = "";
 
-    const newTotal = currentCount + lessonsToBuy;
-    //6- aqui afegim el parametre unscheduled lessons al publicmetadata
     try {
-        await client.users.updateUser(userId, {
-            publicMetadata: {
-                ...user.publicMetadata,
-                unscheduled_lessons: newTotal
+        // 5- Create a Stripe Checkout Session
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'usd', // feel free to change to 'eur'
+                        product_data: {
+                            name: `${lessonsToBuy} Language Lessons`,
+                        },
+                        unit_amount: unitPrice,
+                    },
+                    quantity: lessonsToBuy,
+                },
+            ],
+            mode: 'payment',
+            // We pass the userId in client_reference_id so we know who paid later
+            client_reference_id: userId,
+            // Pass the number of lessons in metadata so we can read it on success
+            metadata: {
+                lessons: lessonsToBuy.toString(),
             },
+            // Stripe will redirect here after success or cancel
+            success_url: `http://localhost:3000/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `http://localhost:3000/payment/cancel`,
         });
+
+        if (session.url) {
+            sessionUrl = session.url;
+        }
     } catch (error) {
-        console.error("Failed to update unscheduled lessons:", error);
-        throw new Error("Failed to process purchase");
+        console.error("Stripe Checkout Error:", error);
+        throw new Error("Failed to process payment session");
     }
-    //7- refresh dashboard amb el nou num de unscheduled lessons i redirigir alla 
-    revalidatePath("/dashboard");
-    redirect("/dashboard");
+
+    // 6- Redirect the user to the Stripe payment page 
+    // (Must be outside the try/catch block in Next.js!)
+    if (sessionUrl) {
+        redirect(sessionUrl);
+    }
 }

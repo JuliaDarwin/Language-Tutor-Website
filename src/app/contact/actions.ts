@@ -11,12 +11,21 @@ export async function sendEmail(formData: FormData) {
     const lessonType = formData.get("lessonType");
     const message = formData.get("message");
 
-    await resend.emails.send({
-        from: 'Contact Form <onboarding@resend.dev>',
-        to: 'juliaelguetaserra@gmail.com',
-        subject: `New message from ${name}`,
-        text: `Email: ${email}\n Weekly Lessons: ${weeklyLessons}\n
-    Lesson Type: ${lessonType}\n\nMessage: ${message}`,
-    });
+    try {
+        const data = await resend.emails.send({
+            from: 'Contact Form <onboarding@resend.dev>',
+            to: 'juliaelguetaserra@gmail.com',
+            subject: `New message from ${name}`,
+            text: `Email: ${email}\nWeekly Lessons: ${weeklyLessons}\nLesson Type: ${lessonType}\n\nMessage: ${message}`,
+        });
+        
+        if (data.error) {
+            console.error("Resend Error:", data.error);
+        } else {
+            console.log("Email sent successfully!", data);
+        }
+    } catch (error) {
+        console.error("Failed to send email:", error);
+    }
 }
 

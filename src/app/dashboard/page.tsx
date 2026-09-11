@@ -5,16 +5,25 @@ import prisma from "@/lib/db";
 
 export default async function DashboardPage() {
   const userObj = await currentUser();
-  const isAdmin = userObj?.publicMetadata?.role === "admin";
-  const unscheduled_lessons =
-    (userObj?.publicMetadata.unscheduled_lessons as number) || 0;
+  const userId = userObj?.id;
+  
+  if (!userId) {
+    return <div>Not authorized</div>;
+  }
+
+  // Fetch the absolute freshest data directly from Clerk's API, bypassing the JWT cache!
+  const client = await clerkClient();
+  const freshUser = await client.users.getUser(userId);
+
+  const isAdmin = freshUser.publicMetadata?.role === "admin";
+  const unscheduled_lessons = (freshUser.publicMetadata.unscheduled_lessons as number) || 0;
+  
   let enoughCredit = true;
   if (unscheduled_lessons <= 0) {
     enoughCredit = false;
   }
 
-  const userName = userObj?.firstName || "";
-  const userId = userObj?.id;
+  const userName = freshUser.firstName || "";
 
   let bookings = [];
 
@@ -69,12 +78,12 @@ export default async function DashboardPage() {
       </header>
 
       <div className="space-y-8">
-      <section className="mx-auto w-full max-w-2xl rounded-3xl border border-[var(--border-subtle)] bg-[var(--surface)] p-6 shadow-md sm:p-8">
+      <section className="mx-auto w-full rounded-3xl border border-[var(--border-subtle)] bg-[var(--card-background)] p-6 shadow-md sm:p-8">
           <h2 className="!mt-0 mb-6 text-center text-xl font-semibold tracking-tight text-black dark:text-white">
           👩🏻‍🏫 Your balance
           </h2>
 
-          <div className="flex w-full flex-row items-start justify-between gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 xs:grid-cols-3 gap-6 sm:gap-8">
             <div className="min-w-0 flex-1 text-center">
               <p className="text-sm font-medium text-[var(--foreground)]">
                 Scheduled lessons
@@ -101,9 +110,7 @@ export default async function DashboardPage() {
                   Unscheduled lessons
                 </p>
                 <p className="mt-1 text-4xl font-bold text-[var(--indigo)]">
-                  {userObj?.publicMetadata?.unscheduled_lessons
-                    ? Number(userObj.publicMetadata.unscheduled_lessons)
-                    : 0}
+                  {unscheduled_lessons}
                 </p>
                 <p className="text-sm text-[var(--foreground-muted)]">Not yet scheduled</p>
               </div>
@@ -117,18 +124,34 @@ export default async function DashboardPage() {
 
       
 
-        <div className="flex justify-center pb-8">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pb-8">
           {enoughCredit ? (
-            <Link
-              href="/booking"
-              className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-300 sm:text-lg"
-            >
-              Schedule lessons
-            </Link>
+            <>
+              <Link
+                href="/booking"
+                className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-300 sm:text-lg"
+              >
+                Schedule lessons
+              </Link>
+              {/* <Link
+                href="/payment"
+                className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-300 sm:text-lg"
+              >
+                Buy lessons
+              </Link> */}
+            </>
           ) : (
-            <span className="inline-flex cursor-not-allowed items-center rounded-full bg-[var(--border-subtle)] px-7 py-3.5 text-base font-semibold text-[var(--foreground-muted)] dark:text-white sm:text-lg">
-              Not enough credit to schedule lessons
-            </span>
+            <>
+              <span className="inline-flex cursor-not-allowed items-center rounded-full bg-[var(--border-subtle)] px-7 py-3.5 text-base font-semibold text-[var(--foreground-muted)] dark:text-white sm:text-lg text-center">
+                Not enough credit to schedule lessons
+              </span>
+              {/* <Link
+                href="/payment"
+                className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-300 sm:text-lg"
+              >
+                Buy lessons
+              </Link> */}
+            </>
           )}
         </div>
       </div>

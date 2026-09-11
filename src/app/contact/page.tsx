@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 export default function ContactPage() {
   return (
     <>
-      <motion.header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/bcn.jpg')] bg-cover bg-center"
+      <motion.header className="relative flex min-h-[20vh] items-center overflow-hidden px-6 py-16 sm:px-12 sm:py-20 bg-[url('/bcn.jpg')] bg-cover bg-center"
       initial={{ opacity: 0, y: 20 }}
       
       // 2. Animate to fully visible and its natural position (y: 0)
@@ -17,7 +17,7 @@ export default function ContactPage() {
         delay: 0.2,
         ease: "easeOut" 
       }}>
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/75 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
         <div
           className="pointer-events-none absolute -right-24 top-1/4 h-56 w-56 rounded-full bg-[var(--indigo)]/25 blur-3xl"
           aria-hidden
@@ -48,7 +48,7 @@ export default function ContactPage() {
       }}
       transition={{ duration: 0.6, delay:0.3 }}>
         <section className="section-beige">
-          <div className="mx-auto w-full px-5 sm:w-[70%] sm:-mt-14 py-15">
+          <div className="mx-auto w-full px-5 sm:w-[70%] sm:-mt-14 py-2 sm:py-15">
             <ContactForm />
           </div>
           

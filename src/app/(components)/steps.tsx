@@ -14,7 +14,7 @@ const steps = [
 export default function Steps() {
   return (
     <div className="flex flex-col items-center gap-20">
-      <ol className="grid grid-cols-1 sm:grid-cols-4 gap-10 w-[85%] mx-auto">
+      <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 w-[85%] mx-auto">
         {steps.map((step, index) => {
           const isLast = index === steps.length - 1;
           return (

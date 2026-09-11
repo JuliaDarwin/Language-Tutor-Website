@@ -1,15 +1,14 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --breakpoint-xs: 480px;
+}
+
 
 :root {
-  /* --background-main: #fffcf8;
-  --background-alt: #f7f3eb;
-  --card-background: #fffcf8; */
   --background-main: #f4eee3;
-  /* A slightly deeper, cozier cream */
   --background-alt: #e9e3d7;
-  /* Even deeper for sidebars/panels */
   --card-background: #f8f1e7;
   --foreground: #171717;
   --foreground-muted: #525252;
@@ -26,8 +25,6 @@
   --indigo-muted: #faedd9;
   --indigo-soft: color-mix(in srgb, var(--indigo) 10%, transparent);
   --accent-soft: color-mix(in srgb, var(--indigo-light) 22%, transparent);
-
-  /* --surface: #e8e8ec; */
   --surface: #e7e5e4;
 
   --border-subtle: color-mix(in srgb, var(--foreground) 8%, transparent);

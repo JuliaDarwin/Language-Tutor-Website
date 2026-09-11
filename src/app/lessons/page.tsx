@@ -143,7 +143,7 @@ export default function Lessons() {
       </motion.header>
 
       <main>
-        <motion.section className="section-beige text-center mx-auto pt-15 pb-5"
+        <motion.section id="packages" className="section-beige text-center mx-auto pt-15 pb-5"
         initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
@@ -174,7 +174,7 @@ export default function Lessons() {
                       Most popular
                     </span>
                     <motion.article
-                      className="relative flex h-full flex-col justify-between overflow-hidden rounded-[14px] bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 text-slate-100 text-center lg:p-10"
+                      className="relative flex h-full flex-col justify-between overflow-hidden rounded-[14px] bg-[var(--primary)] p-8 text-slate-100 text-center lg:p-10"
                       initial={{ opacity: 0, y: 15 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -208,10 +208,10 @@ export default function Lessons() {
                         </ul>
                       </div>
                       <Link
-                        href={`/lessons/${lesson.id}`}
+                        href={`/payment`}
                         className="mt-8 block w-full rounded-full bg-[var(--amber)] py-3 text-center text-sm font-semibold text-slate-950 transition hover:bg-amber-300"
                       >
-                        Learn more
+                        Buy package
                       </Link>
                     </motion.article>
                   </div>
@@ -255,10 +255,10 @@ export default function Lessons() {
                     </ul>
                   </div>
                   <Link
-                    href={`/lessons/${lesson.id}`}
+                    href={`/payment`}
                     className="mt-8 block w-full rounded-full bg-[var(--indigo-soft)] py-3 text-center text-sm font-semibold text-[var(--indigo)] transition hover:bg-[var(--indigo)] hover:text-white"
                   >
-                    Learn more
+                    Buy package
                   </Link>
                 </motion.article>
               );
@@ -269,7 +269,7 @@ export default function Lessons() {
         </motion.section>
 
         {/* LEVELS CFR */}
-        <motion.section className="section-white text-left mx-auto py-20 sm:px-20"
+        <motion.section className="section-white text-left mx-auto py-20 px-2 sm:px-20"
         initial={{ opacity: 0, y: -50 }}
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
@@ -296,7 +296,7 @@ export default function Lessons() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 pt-15 text-center px-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-8 pt-15 text-center">
             {cefrLevels.map((level) => {
               const isExpanded = expandedLevel === level.name;
               return (
@@ -347,8 +347,8 @@ export default function Lessons() {
         amount: 0.3    
       }}
       transition={{ duration: 0.6, delay:0.3 }}
-      className="section-beige pt-10 pb-15 px-25 flex flex-col items-center">
-            <div className="text-center">
+      className="section-beige pt-10 pb-15 px-6 sm:px-25 flex flex-col items-center">
+            <div className="text-justify sm:text-center">
               <h2>Types of Lessons</h2>
               <h3>All lessons tailored to your needs</h3>
               <p>Lesson plans can focus on the areas that you need the most- whether that is speaking, listening, reading, vocabulary or understanding grammar. Or all of them! </p>
@@ -356,11 +356,11 @@ export default function Lessons() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8">
               {lessonTypes.map((lesson, index) => {
                 return(
-                  <div key={lesson.id} className={`flex flex-col items-center p-4 rounded-sm text-center gap-2 ${lesson.bg} hover:scale-105 hover:translate-y-2 shadow-sm transition duration-300`}>
-                    <img src={lesson.image} alt={lesson.name} className="w-[50%] h-[50%] dark:invert dark:hue-rotate-180 dark:brightness-125 transition-all" />
-                    <p className="font-semibold text-2xl text-[var(--foreground)]">{lesson.name}</p>
-                    <p className="text-[var(--foreground-muted)]">{lesson.description}</p>
-                    <div className="pt-2">
+                  <div key={lesson.id} className={`flex flex-col items-center p-4 pb-10 rounded-sm text-center gap-2 ${lesson.bg} hover:scale-105 hover:translate-y-2 shadow-sm transition duration-300`}>
+                    <img src={lesson.image} alt={lesson.name} className="w-[50%] aspect-square object-contain dark:invert dark:hue-rotate-180 dark:brightness-125 transition-all" />
+                    <p className="font-semibold text-xl lg:text-2xl text-[var(--foreground)]">{lesson.name}</p>
+                    <p className="text-[var(--foreground-muted)] text-sm lg:text-md">{lesson.description}</p>
+                    <div className="pt-2 text-sm lg:text-md">
                     {lesson.features.map((feature) => (
                         <li
                           key={feature}
@@ -377,7 +377,7 @@ export default function Lessons() {
               })}
             </div>
             <div className="pt-10 w-full flex justify-center">
-              <Link href={`/contact`} className="btn-primary w-[30%]" >Get Started</Link>
+              <Link href={`/contact`} className="btn-primary w-[70%] md:w-[30%]" >Get Started</Link>
             </div>
         </motion.section>
         <CtaSection />
