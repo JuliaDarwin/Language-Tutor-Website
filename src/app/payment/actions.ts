@@ -2,12 +2,16 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import Stripe from "stripe";
 
 // Initialize Stripe with your secret key
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
 export async function purchaseLessons(formData: FormData) {
+    const headersList = await headers();
+    const origin = headersList.get("origin") || process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+
     const { userId } = await auth();
     
     // 1- check if user exists
@@ -53,8 +57,8 @@ export async function purchaseLessons(formData: FormData) {
                 lessons: lessonsToBuy.toString(),
             },
             // Stripe will redirect here after success or cancel
-            success_url: `http://localhost:3000/payment/success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `http://localhost:3000/payment/cancel`,
+            success_url: `${origin}/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${origin}/payment/cancel`,
         });
 
         if (session.url) {
