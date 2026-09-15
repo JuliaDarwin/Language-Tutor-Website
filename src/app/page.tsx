@@ -273,10 +273,10 @@ export default function Homepage() {
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
         once: true,    // Only animates once (doesn't repeat if you scroll up and down)
-        amount: 0.3    // Triggers when 30% of the element is visible
+        amount: 0.1    // Triggers when 30% of the element is visible
       }}
       transition={{ duration: 0.5 }}>
-          <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+          <h2 className="section-title">
             Why learn with me
           </h2>
           <h3 className="mx-auto mt-3 max-w-3xl text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
@@ -312,7 +312,7 @@ export default function Homepage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{
             once: true,
-            amount: 0.3,
+            amount: 0.2,
           }}
           transition={{ duration: 0.5 }}
         >
@@ -347,11 +347,11 @@ export default function Homepage() {
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
         once: true,    // Only animates once (doesn't repeat if you scroll up and down)
-        amount: 0.3    // Triggers when 30% of the element is visible
+        amount: 0.2    // Triggers when 30% of the element is visible
       }}
       transition={{ duration: 0.5 }}>
           <div className="space-y-4 text-justify sm:text-center mx-auto p-4 sm:p-0">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+            <h2 className="section-title">
               How it works
             </h2>
             <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
@@ -375,7 +375,7 @@ export default function Homepage() {
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
         once: true,    // Only animates once (doesn't repeat if you scroll up and down)
-        amount: 0.3    // Triggers when 30% of the element is visible
+        amount: 0.2    // Triggers when 30% of the element is visible
       }}
       transition={{ duration: 0.5 }}
         >
@@ -387,7 +387,7 @@ export default function Homepage() {
             />
           </div>
           <div className="space-y-4 text-left">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+            <h2 className="section-title">
               About me
             </h2>
             <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -425,10 +425,10 @@ export default function Homepage() {
       whileInView={{ opacity:1, y:0}}
       viewport={{ 
         once: true,    // Only animates once (doesn't repeat if you scroll up and down)
-        amount: 0.3    // Triggers when 30% of the element is visible
+        amount: 0.2    // Triggers when 30% of the element is visible
       }}
       transition={{ duration: 0.5 }}>
-            <h2>What students say</h2>
+            <h2 className="section-title">What students say</h2>
             <h3>My Students' Experience</h3>
             <article className="grid grid-cols-1 sm:grid-cols-2 text-center gap-10">
               { reviews.map((r, index) => {
@@ -452,7 +452,7 @@ export default function Homepage() {
 
         <section className="section-white px-4 py-6 sm:p-15 space-y-4 text-left mx-auto md:pr-4 flex flex-col items-center justify-center w-[90%] lg:w-[70%]">
           
-            <h2>Frequently Asked Questions</h2>
+            <h2 className="section-title">Frequently Asked Questions</h2>
             <h3>Common Questions About Lessons</h3>
             {faqs.map((faq, index) => {
               return(

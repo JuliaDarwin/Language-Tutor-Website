@@ -37,7 +37,7 @@ export default async function UserManagement({
         <div className="mx-auto w-[92%] max-w-4xl py-12 sm:py-16 text-[var(--foreground)]">
             <h1 className="text-3xl font-bold tracking-tight text-center sm:text-left">User Management</h1>
             <div className ="flex flex-col gap-8 items-center justify-center">
-                <h2 className="text-2xl font-semibold text-[var(--indigo)]">{userName} {userLastName}</h2>
+                <h2 className="text-2xl font-semibold text-[var(--indigo)] section-title">{userName} {userLastName}</h2>
                 <p className="font-bold">Email of the user: <span className="font-normal ml-5 text-[var(--foreground-muted)]">{userEmail}</span></p>
                     <h3 className="font-bold text-lg mb-5 text-[var(--foreground)]"> <EditUserLessons userId={user.id} initialCount={unscheduled_lessons}></EditUserLessons>unscheduled lessons</h3>
 

@@ -110,7 +110,7 @@ export default function ContactForm() {
 
   return (
     <div className="rounded-3xl my-24 border border-[var(--border-subtle)] bg-[var(--card-background)] p-6 shadow-md sm:p-10">
-      <h2>
+      <h2 className="section-title">
         Contact form
       </h2>
       <h3>

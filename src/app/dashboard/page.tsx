@@ -133,24 +133,24 @@ export default async function DashboardPage() {
               >
                 Schedule lessons
               </Link>
-              {/* <Link
+              <Link
                 href="/payment"
                 className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-300 sm:text-lg"
               >
                 Buy lessons
-              </Link> */}
+              </Link>
             </>
           ) : (
             <>
               <span className="inline-flex cursor-not-allowed items-center rounded-full bg-[var(--border-subtle)] px-7 py-3.5 text-base font-semibold text-[var(--foreground-muted)] dark:text-white sm:text-lg text-center">
                 Not enough credit to schedule lessons
               </span>
-              {/* <Link
+              <Link
                 href="/payment"
                 className="inline-flex items-center rounded-full bg-[var(--amber)] px-7 py-3.5 text-base font-semibold text-slate-950 shadow-lg shadow-amber-500/20 transition hover:bg-amber-300 sm:text-lg"
               >
                 Buy lessons
-              </Link> */}
+              </Link>
             </>
           )}
         </div>

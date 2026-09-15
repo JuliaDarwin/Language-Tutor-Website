@@ -111,7 +111,7 @@ export default async function LessonPage({
           </div>
           
           <div className="space-y-6 text-left order-1 md:order-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
+            <h2 className="section-title">
               Overview
             </h2>
             <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">
@@ -165,7 +165,7 @@ export default async function LessonPage({
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               Why learn with me
             </p>
-            <h2 className="mx-auto mt-3 max-w-3xl text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
+            <h2 className="mx-auto mt-3 max-w-3xl text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl section-title">
               Why {lesson.name}
             </h2>
             <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base lg:text-lg">
@@ -188,7 +188,7 @@ export default async function LessonPage({
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               How it works
             </p>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
+            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl section-title">
               Start learning in four simple steps
             </h2>
             <p className="text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base lg:text-lg">
@@ -213,7 +213,7 @@ export default async function LessonPage({
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--primary)]">
               Pricing
             </p>
-            <h2 id="pricing-plans" className="text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl">
+            <h2 id="pricing-plans" className="text-2xl font-semibold tracking-tight sm:text-3xl 2xl:text-4xl section-title">
               Choose Your Package
             </h2>
             <p className="mx-auto max-w-3xl text-sm leading-relaxed text-[var(--foreground-muted)] sm:text-base lg:text-lg">

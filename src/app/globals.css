@@ -107,7 +107,7 @@ h1 {
   font-weight: bold;
 }
 
-h2 {
+.section-title {
   font-size: small;
   font-weight: semibold;
   color: var(--primary);

@@ -152,7 +152,7 @@ export default function Lessons() {
       }}
       transition={{ duration: 0.6, delay:0.3 }}>
         <div className="w-[85%] sm:w-[90%] mx-auto">
-          <h2>
+          <h2 className="section-title">
             Package plans
           </h2>
           <h3>
@@ -279,7 +279,7 @@ export default function Lessons() {
       transition={{ duration: 0.5 }}>
           <div className="flex flex-col lg:flex-row justify-around items-center gap-15 px-5">
             <div>
-              <h2>A clear path for your progress</h2>
+              <h2 className="section-title">A clear path for your progress</h2>
               <h3>I follow the CEFR levels</h3>
               <hr className="w-[50%] pb-5"/>
               <p  className="text-justify">My lessons are structured according to the Common European Framework of Reference - CEFR -, the international standard for language learning.</p>
@@ -349,7 +349,7 @@ export default function Lessons() {
       transition={{ duration: 0.6, delay:0.3 }}
       className="section-beige pt-10 pb-15 px-6 sm:px-25 flex flex-col items-center">
             <div className="text-justify sm:text-center">
-              <h2>Types of Lessons</h2>
+              <h2 className="section-title">Types of Lessons</h2>
               <h3>All lessons tailored to your needs</h3>
               <p>Lesson plans can focus on the areas that you need the most- whether that is speaking, listening, reading, vocabulary or understanding grammar. Or all of them! </p>
             </div>

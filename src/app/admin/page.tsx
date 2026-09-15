@@ -1,27 +1,46 @@
-import { clerkClient } from "@clerk/nextjs/server"
+import { clerkClient } from "@clerk/nextjs/server";
 import { removeRole, setRole } from "./actions";
-import Link from "next/link"
+import Link from "next/link";
+import SearchInput from "../(components)/searchInput";
 
 const btnOutline =
   "px-2 py-1 text-sm rounded-full border border-[var(--border-subtle)] font-medium text-[var(--indigo)] transition hover:border-[var(--indigo)] hover:bg-[var(--indigo-soft)]";
 
-export default async function Admin(){
+export default async function Admin({ searchParams }: { searchParams: Promise<{ query?: string }> }) {
     const client = await clerkClient();
     const users = (await client.users.getUserList()).data;
+    
+    const resolvedParams = await searchParams;
+    const query = (resolvedParams?.query || "").toLowerCase();
+
+    const filteredUsers = users.filter((user) => {
+        const firstName = (user.firstName || "").toLowerCase();
+        const lastName = (user.lastName || "").toLowerCase();
+        const email = user.emailAddresses.find((e) => e.id === user.primaryEmailAddressId)?.emailAddress?.toLowerCase() || "";
+        
+        return firstName.includes(query) || lastName.includes(query) || email.includes(query);
+    });
 
     return (
         <main className="mx-auto w-[92%] max-w-5xl py-12 sm:py-16">
-            {users.map((user) => {
-                return (
-                    <div
-                        key={user.id}
-                        className={`flex items-center justify-between gap-4 p-4 rounded-xl ${
-                            users.indexOf(user) % 2 === 0
-                                ? "bg-[var(--surface)]"
-                                : "bg-[var(--background)]"
-                        }`}
-                    >
-                        <div className="flex gap-8 text-[var(--foreground)]">
+            <SearchInput />
+            
+            {filteredUsers.length === 0 ? (
+                <p className="mt-8 text-center text-[var(--foreground-muted)]">No users found matching "{query}".</p>
+            ) : (
+                <div className="space-y-4">
+                    {filteredUsers.map((user, index) => {
+                        return (
+                            <div
+                                key={user.id}
+                                className={`flex items-center justify-between gap-4 p-4 rounded-xl ${
+                                    index % 2 === 0
+                                        ? "bg-[var(--surface)]"
+                                        : "bg-[var(--background)]"
+                                }`}
+                            >
+                        
+                        <div className="flex gap-8 text-[var(--foreground)] pt-5">
                             <div>
                                 {user.firstName} {user.lastName}
                             </div>
@@ -68,11 +87,11 @@ export default async function Admin(){
                             
                         </div>
                     </div>
-
-                    
-                )
-            })}
+                        );
+                    })}
+                </div>
+            )}
         </main>
-    )
+    );
 }
 //to protect this to be view for someone signed in + having admin role, we handle that in middleware
