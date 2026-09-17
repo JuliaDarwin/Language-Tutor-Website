@@ -36,16 +36,17 @@ export default function Nav() {
                   About me
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
+              
               {isSignedIn && user?.publicMetadata?.role === "admin" ? (
                 <>
+                  <li>
+                    <Link
+                      href="/messages"
+                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
+                    >
+                      Messages
+                    </Link>
+                  </li>
                   <li>
                     <Link
                       href="/admin"
@@ -67,6 +68,14 @@ export default function Nav() {
                 <>
                   <li>
                     <Link
+                      href="/messages"
+                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
+                    >
+                      Messages
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       href="/dashboard"
                       className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                     >
@@ -75,14 +84,24 @@ export default function Nav() {
                   </li>
                 </>
               ) : (
-                <li>
-                  <Link
-                    href="/lessons"
-                    className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
-                  >
-                    Book a lesson
-                  </Link>
-                </li>
+                <>
+                  <li>
+                    <Link
+                      href="/contact"
+                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
+                    >
+                      Contact
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/lessons"
+                      className="inline-flex items-center rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-950 shadow-sm hover:bg-amber-300 transition-colors"
+                    >
+                      Book a lesson
+                    </Link>
+                  </li>
+                </>
               )}
               <li className="hidden sm:flex flex-row items-center gap-3">
                 <SignedOut>
@@ -124,16 +143,16 @@ export default function Nav() {
                       About me
                     </Link>
                   </li>
-                  <li>
-                    <Link
-                      href="/contact"
-                      className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
-                    >
-                      Contact
-                    </Link>
-                  </li>
                   {isSignedIn && user?.publicMetadata?.role === "admin" ? (
                     <>
+                      <li>
+                        <Link
+                          href="/messages"
+                          className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
+                        >
+                          Messages
+                        </Link>
+                      </li>
                       <li>
                         <Link
                           href="/admin"
@@ -155,6 +174,14 @@ export default function Nav() {
                     <>
                       <li>
                         <Link
+                          href="/messages"
+                          className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
+                        >
+                          Messages
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
                           href="/dashboard"
                           className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
                         >
@@ -163,14 +190,24 @@ export default function Nav() {
                       </li>
                     </>
                   ) : (
-                    <li>
-                      <Link
-                        href="/lessons"
-                        className="btn-primary"
-                      >
-                        Book a lesson
-                      </Link>
-                    </li>
+                    <>
+                      <li>
+                        <Link
+                          href="/contact"
+                          className="text-slate-100 hover:text-[var(--indigo-light)] transition-colors"
+                        >
+                          Contact
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/lessons"
+                          className="btn-primary"
+                        >
+                          Book a lesson
+                        </Link>
+                      </li>
+                    </>
                   )}
                   <li className="flex flex-row items-center gap-4">
                     <SignedOut>

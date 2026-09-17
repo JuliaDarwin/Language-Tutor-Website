@@ -18,3 +18,12 @@ model Lesson {
   isPast    Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+
+model Message {
+  id        String   @id @default(cuid())
+  userId    String   // The Clerk User ID of the student this chat belongs to
+  userName  String   @default("Student")
+  senderId  String   // The Clerk User ID of the person who actually sent the message
+  text      String
+  createdAt DateTime @default(now())
+}
