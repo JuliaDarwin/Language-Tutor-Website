@@ -13,7 +13,7 @@ const pusher = new Pusher({
 
 // Fetch all messages for a specific user's chat
 export async function getMessages(userId: string) {
-    const { userId: callerId, sessionClaims } = auth();
+    const { userId: callerId, sessionClaims } = await auth();
     if (!callerId) throw new Error("Unauthorized");
     
     const isAdmin = sessionClaims?.metadata?.role === "admin";
@@ -26,7 +26,7 @@ export async function getMessages(userId: string) {
 
 // Fetch all users who have an active chat (for the Admin inbox sidebar)
 export async function getChatUsers() {
-    const { userId: callerId, sessionClaims } = auth();
+    const { userId: callerId, sessionClaims } = await auth();
     const isAdmin = sessionClaims?.metadata?.role === "admin";
     if (!callerId || !isAdmin) throw new Error("Forbidden: Admins only");
     
@@ -44,7 +44,7 @@ export async function getChatUsers() {
 
 // Send a message
 export async function sendMessage(userId: string, userName: string, senderId: string, text: string) {
-    const { userId: callerId, sessionClaims } = auth();
+    const { userId: callerId, sessionClaims } = await auth();
     if (!callerId) throw new Error("Unauthorized");
     
     const isAdmin = sessionClaims?.metadata?.role === "admin";
