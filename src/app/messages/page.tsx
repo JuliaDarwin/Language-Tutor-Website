@@ -98,17 +98,17 @@ export default function Messages() {
 
     // UI Structure
     return (
-        <div className="max-w-5xl mx-auto my-10 bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 flex h-[600px]">
+        <div className="w-[90%] sm:w-[70%] mx-auto my-10 bg-[var(--background-main)] rounded-xl shadow-md overflow-hidden border border-gray-200 flex h-[600px]">
             {/* Sidebar for Admin */}
             {isAdmin && (
-                <div className="w-1/3 border-r border-gray-200 bg-gray-50 flex flex-col">
+                <div className="w-1/3 border-r border-gray-200 bg-gray-50 bg-[var(--foreground-muted)] dark:bg-[var(--foreground-muted)] flex flex-col">
                     <h2 className="text-lg font-semibold p-4 border-b">Students</h2>
                     <div className="overflow-y-auto flex-1">
                         {chatUsers.map(u => (
                             <button
                                 key={u.userId}
                                 onClick={() => setSelectedUserId(u.userId)}
-                                className={`w-full text-left p-4 border-b hover:bg-gray-100 transition ${selectedUserId === u.userId ? 'bg-blue-50 border-l-4 border-blue-500' : ''}`}
+                                className={`w-full text-left p-4 border-b hover:bg-gray-100 hover:text-black transition ${selectedUserId === u.userId ? 'bg-blue-50 dark:[var(--blue)] dark:text-black border-l-4 border-blue-500' : ''}`}
                             >
                                 {u.userName && u.userName !== "Admin" ? u.userName : u.userId.slice(0, 8)}
                             </button>
@@ -120,11 +120,11 @@ export default function Messages() {
 
             {/* Main Chat Area */}
             <div className={`flex flex-col ${isAdmin ? 'w-2/3' : 'w-full'}`}>
-                <h1 className="text-xl font-semibold p-6 bg-white border-b text-gray-800">
+                <h1 className="text-xl font-semibold p-6 bg-white dark:bg-[var(--foreground-muted)] border-b text-gray-800">
                     {isAdmin ? (selectedUserId ? `Chat with ${chatUsers.find(u => u.userId === selectedUserId)?.userName || selectedUserId.slice(0, 8)}` : "Select a student to chat") : "Ask Your Tutor"}
                 </h1>
                 
-                <div id="msgContainer" className="bg-gray-50 flex-1 w-full p-4 overflow-y-auto flex flex-col gap-2">
+                <div id="msgContainer" className="bg-white dark:bg-[var(--card-background)] flex-1 w-full p-4 overflow-y-auto flex flex-col gap-2">
                     {(!isAdmin || selectedUserId) && msgArray.map((message, index) => {
                         const isOurs = message.senderId === user?.id;
                         const bubbleClass = isOurs 
@@ -149,7 +149,7 @@ export default function Messages() {
                     )}
                 </div>
 
-                <div className="p-4 bg-white border-t flex gap-3">
+                <div className="p-4 bg-white dark:bg-[var(--foreground-muted)] border-t flex gap-3 flex-wrap">
                     <input 
                         id="msgInput" 
                         type="text" 
@@ -158,7 +158,7 @@ export default function Messages() {
                         disabled={isAdmin && !selectedUserId}
                         onChange={(e)=>setMsg(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                        className="flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors disabled:bg-gray-100"
+                        className="w-2/3 flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors disabled:bg-gray-100 text-black"
                     />
                     <button 
                         id="enviar" 
