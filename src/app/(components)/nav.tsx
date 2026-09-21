@@ -119,7 +119,7 @@ export default function Nav() {
 
           {/*phone nav*/}
         <nav className="sm:hidden">
-          <button className="p-3 text-white" onClick={() => setOpen(!open)}>
+          <button className="p-3 text-white" onClick={() => setOpen(!open)} aria-label="Toggle menu">
             {open ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
           {open && (

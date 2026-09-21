@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Steps from "./(components)/steps";
 import { CtaSection } from "./(components)/cta-section";
 import { motion, useInView, animate } from "framer-motion";
@@ -255,10 +256,13 @@ export default function Homepage() {
             </div>
           </div>
           <div className="relative w-full h-full">
-            <img 
+            <Image 
               src="/homepage2.jpg" 
               alt="Júlia - Catalan and Spanish Tutor" 
-              className="w-full h-full object-cover object-top " 
+              width={2000}
+              height={2000}
+              className="w-full h-full object-cover object-top "
+              priority 
             />
             {/* Faded left border effect */}
             <div className="absolute inset-y-0 left-0 w-0 sm:w-4 bg-gradient-to-r from-[var(--background-alt)] to-transparent pointer-events-none"></div>
@@ -291,7 +295,7 @@ export default function Homepage() {
                   className="group relative flex flex-col items-center text-center bg-[var(--card-background)] overflow-hidden rounded-2xl  p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-lg border-t-2 border-[var(--amber)] hover:border-[var(--primary)]"
                 >
                   <div className="absolute inset-x-0 top-0 h-1bg-gradient-to-r from-[var(--indigo)] to-[var(--amber)] opacity-0 transition group-hover:opacity-100" />
-                  <img src={item.image} className="aspect-16/11"></img>
+                  <Image src={item.image.startsWith('/') ? item.image : `/${item.image}`} width={1600} height={1100} className="aspect-16/11" alt={item.title} />
                   {/* <span className="inline-flex p-3 h-20 w-20 items-center justify-center rounded-4xl bg-[var(--indigo-muted)] text-5xl text-[var(--indigo)]">
                     <IconComponent />
                   </span> */}
@@ -380,9 +384,11 @@ export default function Homepage() {
       transition={{ duration: 0.5 }}
         >
           <div className="flex justify-center md:justify-end w-full">
-            <img
+            <Image
               src="/casual-me.jpg"
               alt="Catalan tutor"
+              width={800}
+              height={1000}
               className="relative aspect-[4/5] w-[80%] sm:w-[70%] md:w-[85%] rounded-2xl object-cover"
             />
           </div>

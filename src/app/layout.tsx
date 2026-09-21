@@ -61,12 +61,14 @@ export default function RootLayout({
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-slate-400 hover:text-pink-500 transition-colors duration-200"
+                        aria-label="Instagram"
                       >
                         <FaInstagram className="text-xl" />
                       </a>
                       <a 
                         href="#" 
                         className="text-slate-400 hover:text-blue-500 transition-colors duration-200"
+                        aria-label="Facebook"
                       >
                         <FaFacebook className="text-xl" />
                       </a>

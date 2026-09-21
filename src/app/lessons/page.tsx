@@ -112,7 +112,7 @@ export default function Lessons() {
   
   return (
     <>
-      <motion.header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20 bg-[url('/bcn.jpg')] bg-cover bg-center"
+      <motion.header className="relative flex min-h-[40vh] items-center overflow-hidden px-6 py-16 sm:min-h-[45vh] sm:px-12 sm:py-20"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ 
@@ -120,6 +120,12 @@ export default function Lessons() {
         delay: 0.2,
         ease: "easeOut" 
       }}>
+        <img 
+          src="/bcn.jpg" 
+          alt="Barcelona background" 
+          className="absolute inset-0 w-full h-full object-cover object-center" 
+          fetchPriority="high"
+        />
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-[color-mix(in_srgb,var(--indigo)_35%,transparent)]" />
         <div
           className="pointer-events-none absolute -right-24 top-1/4 h-56 w-56 rounded-full bg-[var(--indigo)]/25 blur-3xl"
@@ -195,6 +201,7 @@ export default function Lessons() {
                         </p>
                         <ul className="mt-6 space-y-3">
                           {lesson.features.map((feature) => (
+                            
                             <li
                               key={feature}
                               className="flex items-center justify-center gap-2 text-sm text-slate-300"
@@ -357,7 +364,7 @@ export default function Lessons() {
               {lessonTypes.map((lesson, index) => {
                 return(
                   <div key={lesson.id} className={`flex flex-col items-center p-4 pb-10 rounded-sm text-center gap-2 ${lesson.bg} hover:scale-105 hover:translate-y-2 shadow-sm transition duration-300`}>
-                    <img src={lesson.image} alt={lesson.name} className="w-[50%] aspect-square object-contain dark:invert dark:hue-rotate-180 dark:brightness-125 transition-all" />
+                    <img src={lesson.image} alt={lesson.name} loading="lazy" className="w-[50%] aspect-square object-contain dark:invert dark:hue-rotate-180 dark:brightness-125 transition-all" />
                     <p className="font-semibold text-xl lg:text-2xl text-[var(--foreground)]">{lesson.name}</p>
                     <p className="text-[var(--foreground-muted)] text-sm lg:text-md">{lesson.description}</p>
                     <div className="pt-2 text-sm lg:text-md">
