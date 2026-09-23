@@ -49,3 +49,16 @@ Ensure you have Node.js and `npm` (or `pnpm`/`yarn`) installed. You will need AP
 1. **Clone and Install dependencies**
    ```bash
    npm install
+2. **Set up environment variables**
+   Create a `.env` and `.env.local` file with your respective API keys.
+3. **Database Setup**
+   Push the Prisma schema to your PostgreSQL database and generate the client:
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) to view the application.
