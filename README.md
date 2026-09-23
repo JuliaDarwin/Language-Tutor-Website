@@ -1,4 +1,4 @@
-Language Tutoring Web App (Next.js)
+#h1 Language Tutoring Web App (Next.js)
 
 A modern, full-stack language tutoring and booking platform built with Next.js 16. This application provides a comprehensive suite of features for scheduling lessons, processing payments, real-time messaging, and managing user profiles.
 
